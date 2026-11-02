@@ -8,8 +8,7 @@ export default {
     brand: "Akhavan Dev",
     role: "Web developer",
     area: "Dallas–Fort Worth, Texas",
-    // Contact goes to this address. Swap it for hello@akhavandev.com once domain email is set up.
-    email: "parsaakh99@gmail.com",
+    email: "parsa@akhavandev.com",
   },
 
   meta: {
