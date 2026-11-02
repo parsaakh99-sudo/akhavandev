@@ -1,0 +1,19 @@
+---
+import { site, mailto } from "../lib/site";
+---
+
+<header class="header">
+  <div class="frame header__row">
+    <a class="wordmark" href="/" aria-label={`${site.person.brand}, home`}>
+      akhavan<span class="wordmark__dot">.</span>dev
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav">
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#process">Process</a></li>
+      </ul>
+    </nav>
+    <a class="button button--small" href={mailto()}>Contact</a>
+  </div>
+</header>

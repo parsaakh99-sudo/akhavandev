@@ -1,0 +1,84 @@
+---
+import fontWoff2 from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2?url";
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site, absoluteUrl, personJsonLd } from "../lib/site";
+
+// One variable face (weight, width and optical size), declared here so its loading is ours to set.
+// It swaps over an Arial fallback sized close to it, so text paints at once.
+const fontCss = `
+@font-face{font-family:"Bricolage Grotesque Variable";font-style:normal;font-weight:200 800;font-stretch:75% 100%;font-display:swap;src:url(${fontWoff2}) format("woff2-variations"),url(${fontWoff2}) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Bricolage Fallback";font-style:normal;font-weight:200 800;src:local("Arial"),local("ArialMT");size-adjust:104%;ascent-override:92%;descent-override:26%;line-gap-override:0%}
+`;
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const canonical = absoluteUrl(Astro.url.pathname.replace(/\/index(\.html)?$/, "/"));
+const t = site.theme;
+const rootStyle = [
+  `--bg:${t.bg}`,
+  `--surface:${t.surface}`,
+  `--ink:${t.ink}`,
+  `--muted:${t.muted}`,
+  `--accent:${t.accent}`,
+  `--accent-ink:${t.accentInk}`,
+  `--font:${t.font}`,
+].join(";");
+---
+
+<!doctype html>
+<html lang="en" style={rootStyle}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content={t.bg} />
+    <link rel="preload" as="font" type="font/woff2" href={fontWoff2} crossorigin />
+    <Fragment set:html={`<style>${fontCss}</style>`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.person.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(personJsonLd())} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Reveals: each [data-reveal] block rises into place once, the first time it scrolls into view.
+      const items = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-in");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -10% 0px" },
+        );
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add("is-in"));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+---
+import { site, mailto } from "../lib/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="frame footer__row">
+    <p>© {year} {site.person.name} · {site.person.area}</p>
+    <a href={mailto()}>{site.person.email}</a>
+  </div>
+</footer>

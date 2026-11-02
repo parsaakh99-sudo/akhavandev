@@ -1,0 +1,22 @@
+{
+  "name": "akhavandev",
+  "version": "1.0.0",
+  "description": "Portfolio site for akhavandev.com",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --port 4340",
+    "build": "astro build",
+    "preview": "astro preview --port 4340",
+    "check": "astro check",
+    "deploy": "astro build && git -C dist init -q -b gh-pages && git -C dist add -A && git -C dist commit -qm deploy && git -C dist push -f https://github.com/parsaakh99-sudo/akhavandev.git gh-pages && rm -rf dist/.git"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "astro": "^7.4.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  }
+}
