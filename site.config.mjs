@@ -192,8 +192,9 @@ export default {
     kind: "For businesses",
     name: "Website packages",
     tagline: "A hand-coded site for your business, from $600.",
-    image: "tracys-desktop",
-    imageMobile: "tracys-mobile",
+    image: "website-packages",
+    imageMobile: "",
+    photo: true, // a photograph, shown as it is rather than inside a browser window
     from: "$600",
     title: "Website packages",
     body: "Hand-coded, fast on phones, and yours to keep: the code, hosting and domain are in your name.",

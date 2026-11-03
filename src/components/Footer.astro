@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import mark from "../assets/brand/mark.png";
+import logoLong from "../assets/brand/logo-long.png";
 import { site, mailto, tel } from "../lib/site";
 const year = new Date().getFullYear();
 const nav = ["work", "products", "services", "process", "contact"] as const;
@@ -8,7 +9,9 @@ const nav = ["work", "products", "services", "process", "contact"] as const;
 
 <footer class="footer">
   <div class="frame">
-    <p class="footer__giant" aria-hidden="true">Akhavan</p>
+    <a class="footer__logo" href="/" aria-label={`${site.person.brand}, home`}>
+      <Image src={logoLong} alt="" width={533} height={132} densities={[1, 2]} />
+    </a>
     <div class="footer__row">
       <span class="footer__brand">
         <Image src={mark} alt="" width={28} height={28} densities={[1, 2]} />

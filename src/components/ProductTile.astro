@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { img } from "../lib/images";
+import IPhone from "./IPhone.astro";
 
 // One tile in the products collage: a picture, a name and a starting price, leading to the product's page.
 interface Props {
@@ -9,14 +10,13 @@ interface Props {
 }
 const { product: p, d = 0 } = Astro.props;
 const pic = img(p.image);
-const phone = img(p.imageMobile);
 ---
 
 <li class:list={["tile", `tile--${p.tile ?? "wide"}`, { "tile--sw": p.id === "scenewise" }]} data-reveal style={`--d:${d}`}>
   <a class="tile__link" href={p.href}>
     <span class="tile__art" aria-hidden="true">
       {pic && <Image class="tile__pic" src={pic} alt="" widths={[480, 800, 1200]} sizes="(min-width: 960px) 50vw, 100vw" />}
-      {phone && <Image class="tile__phone" src={phone} alt="" widths={[200, 300]} sizes="160px" />}
+      {p.imageMobile && <IPhone src={p.imageMobile} alt="" class="tile__phone" />}
     </span>
     <span class="tile__text">
       <span class="kicker">{p.kind}</span>

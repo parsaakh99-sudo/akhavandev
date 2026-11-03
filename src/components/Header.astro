@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import mark from "../assets/brand/mark.png";
+import logoLong from "../assets/brand/logo-long.png";
 import { site, mailto } from "../lib/site";
 
 const nav = ["work", "products", "services", "process", "contact"] as const;
@@ -10,11 +10,7 @@ const here = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/"
 <header class="header" transition:persist>
   <div class="frame header__row">
     <a class="logo" href="/" aria-label={`${site.person.brand}, home`}>
-      <Image src={mark} alt="" width={40} height={40} densities={[1, 2]} loading="eager" />
-      <span class="logo__text" aria-hidden="true">
-        <span class="logo__name">Akhavan</span>
-        <span class="logo__sub">Developers</span>
-      </span>
+      <Image src={logoLong} alt="" width={162} height={40} densities={[1, 2, 3]} loading="eager" />
     </a>
     <nav aria-label="Main">
       <ul class="nav">

@@ -8,6 +8,8 @@ import TierCard from "../../components/TierCard.astro";
 import Scenewise from "../../components/Scenewise.astro";
 import ProductTile from "../../components/ProductTile.astro";
 import CtaBand from "../../components/CtaBand.astro";
+import { Image } from "astro:assets";
+import { img } from "../../lib/images";
 import { site, allProducts, buyUrl } from "../../lib/site";
 
 // One page per product: what it is, a look at it, what it costs, and the buy button.
@@ -22,7 +24,7 @@ const others = all.filter((x) => x.id !== id);
 const app = site.products.find((x) => x.id === id);
 const isWebsites = id === "websites";
 const isScenewise = id === "scenewise";
-const url = isScenewise ? "scenewise.net" : isWebsites ? "tracyslashandnails.com" : id === "ai-receptionist" ? "AI receptionist demo" : undefined;
+const url = isScenewise ? "scenewise.net" : id === "ai-receptionist" ? "AI receptionist demo" : undefined;
 ---
 
 <Base title={`${p.name} · Akhavan Developers`} description={p.tagline}>
@@ -33,7 +35,13 @@ const url = isScenewise ? "scenewise.net" : isWebsites ? "tracyslashandnails.com
 
   <section class="section frame" aria-label={`A look at ${p.name}`}>
     <div class="panel product-look" data-reveal>
-      <Showcase desktop={p.image!} mobile={p.imageMobile || undefined} name={p.name} url={url} />
+      {
+        "photo" in p && p.photo ? (
+          <figure class="photo"><Image src={img(p.image)!} alt={`${p.name}: a website shown on a laptop, a tablet and a phone`} widths={[600, 900, 1200]} sizes="(min-width: 960px) 60vw, 100vw" /></figure>
+        ) : (
+          <Showcase desktop={p.image!} mobile={p.imageMobile || undefined} name={p.name} url={url} />
+        )
+      }
       {
         app && (
           <div class="panel__body">
