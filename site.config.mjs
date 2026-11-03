@@ -27,7 +27,7 @@ export default {
       title: "Work · Akhavan Developers",
       description: "Websites Akhavan Developers has built for local businesses in Dallas–Fort Worth.",
       hero: { eyebrow: "Work", title: "Sites built for real businesses.", lead: "Every site is hand-coded around the business it’s for: what it sells, how its customers book, and what they need to see first." },
-      teaser: { eyebrow: "Recent work", title: "Selected builds", lead: "A look at a recent site, built for a salon in Plano.", cta: "See all work" },
+      teaser: { eyebrow: "Recent work", title: "Selected builds", lead: "Client sites appear here once each client is happy to be shown.", cta: "See all work" },
     },
     products: {
       path: "/products",
@@ -76,20 +76,17 @@ export default {
   },
 
   // show: false keeps a project off the page until the client agrees to be shown.
+  // Shown where client projects go, while none are public yet.
+  nextProject: {
+    image: "work-next",
+    alt: "A laptop and a phone on a dark desk at dusk, both showing a clean small-business website",
+    kicker: "Open spot · Dallas–Fort Worth · 2026",
+    title: "Your business could be next.",
+    body: "I’m taking on new client sites now. You get a free sample homepage before you pay anything, and the finished site, code and domain are yours.",
+    cta: "Start a project",
+  },
+
   work: [
-    {
-      show: true,
-      name: "Tracy’s Lash and Nails Spa",
-      place: "Plano, TX",
-      kind: "Nail and lash salon",
-      year: "2026",
-      summary:
-        "A one-page site with all 64 services and prices matching the salon’s Vagaro menu, online booking, the salon’s own work from Instagram, and live open-now hours.",
-      tags: ["Astro", "Booking integration", "Local SEO"],
-      image: "tracys-desktop",
-      imageMobile: "tracys-mobile",
-      url: "", // add the address once the site is live
-    },
     {
       show: false,
       name: "Tricon Roofing & Construction",

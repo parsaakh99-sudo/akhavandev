@@ -1649,6 +1649,10 @@ main,
   aspect-ratio: 4 / 3;
 }
 
+.photo--wide {
+  aspect-ratio: 16 / 9;
+}
+
 .photo img {
   width: 100%;
   height: 100%;

@@ -1,0 +1,20 @@
+---
+import { Image } from "astro:assets";
+import { site } from "../lib/site";
+import { img } from "../lib/images";
+
+// Sits where a client project would, in the same panel, until client work can be shown.
+const n = site.nextProject;
+---
+
+<article class="panel project" data-reveal data-spot>
+  <figure class="photo photo--wide">
+    <Image src={img(n.image)!} alt={n.alt} widths={[600, 900, 1376]} sizes="(min-width: 960px) 60vw, 100vw" />
+  </figure>
+  <div class="panel__body">
+    <p class="kicker">{n.kicker}</p>
+    <h3 class="h3">{n.title}</h3>
+    <p class="muted">{n.body}</p>
+    <a class="link-arrow" href={site.pages.contact.path}>{n.cta} <span aria-hidden="true">→</span></a>
+  </div>
+</article>

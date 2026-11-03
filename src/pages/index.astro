@@ -5,6 +5,7 @@ import PageHero from "../components/PageHero.astro";
 import Marquee from "../components/Marquee.astro";
 import SectionHead from "../components/SectionHead.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import NextProject from "../components/NextProject.astro";
 import ProductTile from "../components/ProductTile.astro";
 import ServiceCard from "../components/ServiceCard.astro";
 import Steps from "../components/Steps.astro";
@@ -29,14 +30,10 @@ const featured = site.work.find((w) => w.show);
 
   <Marquee />
 
-  {
-    featured && (
-      <section class="section frame" aria-labelledby="work-title">
-        <SectionHead id="work-title" num="01" {...pages.work.teaser} href={pages.work.path} />
-        <ProjectCard work={featured} />
-      </section>
-    )
-  }
+  <section class="section frame" aria-labelledby="work-title">
+    <SectionHead id="work-title" num="01" {...pages.work.teaser} href={pages.work.path} />
+    {featured ? <ProjectCard work={featured} /> : <NextProject />}
+  </section>
 
   <section class="section frame" aria-labelledby="products-title">
     <SectionHead id="products-title" num="02" {...pages.products.teaser} href={pages.products.path} />
