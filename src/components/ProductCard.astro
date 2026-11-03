@@ -1,0 +1,33 @@
+---
+import Checks from "./Checks.astro";
+import { buyUrl } from "../lib/site";
+
+interface Props {
+  product: { id: string; name: string; kind: string; tagline: string; body: string; features: string[]; note: string; prices: { label: string; amount: string; per: string; cta: string; stripe: string }[] };
+  d?: number;
+  compact?: boolean;
+}
+const { product: p, d = 0, compact = false } = Astro.props;
+---
+
+<li class="panel product" data-reveal data-spot style={`--d:${d}`}>
+  <p class="kicker">{p.kind}</p>
+  <h3 class="h3">{p.name}</h3>
+  <p class="product__tagline">{p.tagline}</p>
+  {!compact && <p class="muted">{p.body}</p>}
+  {!compact && <Checks items={p.features} />}
+  <div class="product__buy">
+    {
+      p.prices.map((pr, j) => (
+        <div class="price">
+          <p class="price__label">{pr.label}</p>
+          <p class="price__amount"><span data-count>{pr.amount}</span>{pr.per && <span class="price__per">{pr.per}</span>}</p>
+          <a class:list={["button", j === 0 ? "button--primary" : "button--ghost"]} href={buyUrl(pr.stripe, `${p.name} (${pr.label})`)} data-magnetic={j === 0 ? "" : undefined}>
+            {pr.cta} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      ))
+    }
+  </div>
+  {!compact && <p class="note">{p.note}</p>}
+</li>

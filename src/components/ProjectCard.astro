@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  work: { name: string; kind: string; place: string; year: string; summary: string; tags: string[]; image: string; imageMobile: string; url: string };
+}
+const { work: w } = Astro.props;
+const shots = import.meta.glob<{ default: ImageMetadata }>("../assets/work/*.png", { eager: true });
+const shot = (name: string) => (name ? shots[`../assets/work/${name}.png`]?.default : undefined);
+const desk = shot(w.image);
+const mob = shot(w.imageMobile);
+---
+
+<article class="panel project" data-reveal data-spot>
+  <div class="project__stage" data-tilt>
+    <div class="project__media">
+      {
+        desk && (
+          <figure class="browser">
+            <span class="browser__bar" aria-hidden="true"><i /><i /><i /></span>
+            <Image src={desk} alt={`${w.name} website on a laptop-sized screen`} widths={[640, 960, 1440]} sizes="(min-width: 960px) 760px, 100vw" />
+          </figure>
+        )
+      }
+      {
+        mob && (
+          <figure class="phone">
+            <Image src={mob} alt={`${w.name} website on a phone`} widths={[200, 390]} sizes="200px" />
+          </figure>
+        )
+      }
+    </div>
+  </div>
+  <div class="panel__body">
+    <p class="kicker">{w.kind} · {w.place} · {w.year}</p>
+    <h3 class="h3">{w.name}</h3>
+    <p class="muted">{w.summary}</p>
+    <ul class="tags" aria-label="Built with">{w.tags.map((t) => <li>{t}</li>)}</ul>
+    {w.url && <a class="link-arrow" href={w.url} rel="noopener">Visit the site <span aria-hidden="true">↗</span></a>}
+  </div>
+</article>

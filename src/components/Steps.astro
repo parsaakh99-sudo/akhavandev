@@ -1,0 +1,19 @@
+---
+// The process, as numbered steps joined by a line that draws in as it scrolls into view.
+interface Props {
+  steps: { title: string; body: string }[];
+}
+const { steps } = Astro.props;
+---
+
+<ol class="steps" data-reveal data-steps>
+  {
+    steps.map((p, i) => (
+      <li class="step" style={`--d:${i}`}>
+        <span class="index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+        <h3 class="h3">{p.title}</h3>
+        <p class="muted">{p.body}</p>
+      </li>
+    ))
+  }
+</ol>

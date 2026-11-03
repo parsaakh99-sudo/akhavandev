@@ -1,0 +1,19 @@
+---
+import { site, mailto } from "../lib/site";
+interface Props {
+  title?: string;
+  body?: string;
+}
+const { title = site.contact.title, body = site.contact.body } = Astro.props;
+---
+
+<section class="section frame" aria-labelledby="cta-title">
+  <div class="cta" data-reveal data-spot>
+    <h2 id="cta-title" class="h2 h2--big">{title}</h2>
+    <p class="lead">{body}</p>
+    <div class="actions">
+      <a class="button button--primary" href={mailto()} data-magnetic>{site.contact.cta} <span aria-hidden="true">→</span></a>
+      <a class="link-arrow" href={site.pages.contact.path}>Other ways to reach me <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+---
+// The top of every page: eyebrow, the page's one h1 (rising word by word, last word lit), lead, optional actions.
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  size?: "display" | "page";
+}
+const { eyebrow, title, lead, size = "page" } = Astro.props;
+const words = title.split(" ");
+const last = words.length - 1;
+---
+
+<section class:list={["page-hero frame", `page-hero--${size}`]}>
+  <div class="page-hero__copy">
+    <p class="eyebrow hero__in" style="--d:0"><span class="pulse" aria-hidden="true"></span>{eyebrow}</p>
+    <h1 class:list={[size === "display" ? "display" : "title"]} aria-label={title}>
+      {
+        words.map((w, i) => (
+          <span class="word" aria-hidden="true" style={`--d:${i + 1}`}>
+            <span class:list={["word__in", { "word__in--lit": i === last }]}>{w}</span>
+          </span>
+        ))
+      }
+    </h1>
+    {lead && <p class="lead hero__in" style={`--d:${words.length + 1}`}>{lead}</p>}
+    {Astro.slots.has("default") && <div class="actions hero__in" style={`--d:${words.length + 2}`}><slot /></div>}
+  </div>
+  <slot name="aside" />
+</section>

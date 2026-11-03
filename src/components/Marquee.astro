@@ -1,0 +1,22 @@
+---
+import { site } from "../lib/site";
+const items = site.marquee;
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {
+      [0, 1].map(() => (
+        <ul class="marquee__list">
+          {items.map((m) => (
+            <li>
+              {m}
+              <span class="marquee__star">✦</span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+<ul class="sr-only">{items.map((m) => <li>{m}</li>)}</ul>

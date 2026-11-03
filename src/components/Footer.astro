@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import mark from "../assets/brand/mark.png";
 import { site, mailto } from "../lib/site";
 const year = new Date().getFullYear();
+const nav = ["work", "products", "services", "process", "contact"] as const;
 ---
 
 <footer class="footer">
@@ -13,6 +14,11 @@ const year = new Date().getFullYear();
         <Image src={mark} alt="" width={28} height={28} densities={[1, 2]} />
         © {year} {site.person.brand} · {site.person.area}
       </span>
+      <nav aria-label="Footer">
+        <ul class="footer__nav">
+          {nav.map((k) => <li><a href={site.pages[k].path}>{site.pages[k].label}</a></li>)}
+        </ul>
+      </nav>
       <a href={mailto()}>{site.person.email}</a>
     </div>
   </div>

@@ -17,6 +17,52 @@ export default {
       "Akhavan Developers: Parsa Akhavan designs and builds fast, hand-coded websites for salons, contractors and service businesses in Dallas–Fort Worth. You own everything at the end.",
   },
 
+  // One entry per page in the menu. `hero` is the top of that page; `teaser` is its block on the home page.
+  pages: {
+    work: {
+      path: "/work",
+      label: "Work",
+      title: "Work · Akhavan Developers",
+      description: "Websites Akhavan Developers has built for local businesses in Dallas–Fort Worth.",
+      hero: { eyebrow: "Work", title: "Sites built for real businesses.", lead: "Every site is hand-coded around the business it’s for: what it sells, how its customers book, and what they need to see first." },
+      teaser: { eyebrow: "Recent work", title: "Selected builds", lead: "A look at a recent site, built for a salon in Plano.", cta: "See all work" },
+    },
+    products: {
+      path: "/products",
+      label: "Products",
+      title: "Products · Akhavan Developers",
+      description: "Study Buddy, the AI Receptionist, website packages from $600, and Scenewise. Pay securely with Stripe.",
+      hero: { eyebrow: "Products", title: "Things you can buy today.", lead: "Apps, tools and website packages, built by me. Pay securely with Stripe and get started right away." },
+      teaser: { eyebrow: "Products", title: "Things you can buy today", lead: "Apps, tools and websites. Checkout takes a minute.", cta: "See all products" },
+    },
+    services: {
+      path: "/services",
+      label: "Services",
+      title: "Services · Akhavan Developers",
+      description: "New websites, redesigns, booking and contact, and showing up on Google, for local businesses.",
+      hero: { eyebrow: "Services", title: "What I can build for you.", lead: "Websites that load fast on phones, say clearly what you do, and turn a visit into a booking." },
+      teaser: { eyebrow: "Services", title: "What I can build for you", lead: "From a first site to a full redesign with booking built in.", cta: "See all services" },
+    },
+    process: {
+      path: "/process",
+      label: "Process",
+      title: "Process · Akhavan Developers",
+      description: "How a website with Akhavan Developers works: a short call, a free sample, the build, then launch and handoff.",
+      hero: { eyebrow: "Process", title: "How it works.", lead: "Four steps from a first call to a live site, and you see a real sample before you pay for anything." },
+      teaser: { eyebrow: "Process", title: "How it works", lead: "Four steps, and a free sample before you pay.", cta: "See the process" },
+    },
+    contact: {
+      path: "/contact",
+      label: "Contact",
+      title: "Contact · Akhavan Developers",
+      description: "Start a website project with Akhavan Developers. Email parsa@akhavandev.com; replies within a day.",
+      hero: { eyebrow: "Contact", title: "Let’s build your site.", lead: "Tell me what you do and where you are. I’ll reply within a day." },
+    },
+  },
+
+  // What a message should include, shown on the contact page.
+  contactTips: ["Your business name and what you do", "Where you are, and who your customers are", "Your current website, if you have one", "Anything you already know you want"],
+
   hero: {
     eyebrow: "Web developer · Dallas–Fort Worth",
     // The last word of the title is lit in the accent colour.
@@ -216,7 +262,7 @@ export default {
   contact: {
     title: "Have a business that needs a better website?",
     body: "Tell me what you do and where you are. I’ll reply within a day.",
-    cta: "Email me",
+    cta: "Start a project",
     subject: "New website",
   },
 

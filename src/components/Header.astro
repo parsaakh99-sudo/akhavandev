@@ -2,9 +2,12 @@
 import { Image } from "astro:assets";
 import mark from "../assets/brand/mark.png";
 import { site, mailto } from "../lib/site";
+
+const nav = ["work", "products", "services", "process", "contact"] as const;
+const here = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
 ---
 
-<header class="header">
+<header class="header" transition:persist>
   <div class="frame header__row">
     <a class="logo" href="/" aria-label={`${site.person.brand}, home`}>
       <Image src={mark} alt="" width={40} height={40} densities={[1, 2]} loading="eager" />
@@ -15,12 +18,19 @@ import { site, mailto } from "../lib/site";
     </a>
     <nav aria-label="Main">
       <ul class="nav">
-        <li><a href="/#work">Work</a></li>
-        <li><a href="/#products">Products</a></li>
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#process">Process</a></li>
+        {
+          nav.map((k) => {
+            const p = site.pages[k];
+            return (
+              <li>
+                <a href={p.path} aria-current={here === p.path ? "page" : undefined}>{p.label}</a>
+              </li>
+            );
+          })
+        }
       </ul>
     </nav>
-    <a class="button button--small" href={mailto()}>Let’s talk</a>
+    <a class="button button--small" href={mailto()}>{site.contact.cta}</a>
+    <span class="progress" aria-hidden="true"></span>
   </div>
 </header>

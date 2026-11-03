@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Steps from "../components/Steps.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { site } from "../lib/site";
+
+const page = site.pages.process;
+---
+
+<Base title={page.title} description={page.description}>
+  <PageHero {...page.hero} />
+  <section class="section frame" aria-label="Steps">
+    <Steps steps={site.process} />
+  </section>
+  <CtaBand title="Ready for step one?" body="It starts with a short call. Tell me about your business and I’ll set one up." />
+</Base>

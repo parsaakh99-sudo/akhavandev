@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Checks from "../components/Checks.astro";
+import { site, mailto } from "../lib/site";
+
+const page = site.pages.contact;
+---
+
+<Base title={page.title} description={page.description}>
+  <PageHero {...page.hero}>
+    <a class="button button--primary button--big" href={mailto()} data-magnetic>{site.contact.cta} <span aria-hidden="true">→</span></a>
+  </PageHero>
+
+  <section class="section frame" aria-label="How to reach me">
+    <ul class="grid grid--2">
+      <li class="panel" data-reveal data-spot style="--d:0">
+        <p class="kicker">Email</p>
+        <h2 class="h3"><a class="link-plain" href={mailto()}>{site.person.email}</a></h2>
+        <p class="muted">The fastest way to reach me. I reply within a day.</p>
+      </li>
+      <li class="panel" data-reveal data-spot style="--d:1">
+        <p class="kicker">Based in</p>
+        <h2 class="h3">{site.person.area}</h2>
+        <p class="muted">I work with businesses across the area, and anywhere else by video call.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section frame" aria-labelledby="tips-title">
+    <div class="panel" data-reveal>
+      <h2 id="tips-title" class="h3">What to put in your message</h2>
+      <Checks items={site.contactTips} inline />
+    </div>
+  </section>
+</Base>

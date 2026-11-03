@@ -1,0 +1,51 @@
+---
+import Checks from "./Checks.astro";
+import { site } from "../lib/site";
+const sw = site.scenewise;
+---
+
+<section id="scenewise" class="sw section" aria-labelledby="sw-title">
+  <div class="frame">
+    <div class="sw__card" data-reveal>
+      <div class="sw__intro">
+        <p class="eyebrow sw__eyebrow">{sw.eyebrow}</p>
+        <h2 id="sw-title" class="h2"><span class="sw__brand">Scenewise</span> {sw.title}</h2>
+        <p class="lead">{sw.body}</p>
+        <ul class="tags tags--sw" aria-label="Scenewise tools">{sw.tools.map((t) => <li>{t}</li>)}</ul>
+        <a class="button button--sw" href={sw.url} rel="noopener" data-magnetic>{sw.cta} <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <fieldset class="toggle">
+        <legend class="sr-only">Billing</legend>
+        <input type="radio" name="sw-billing" id="sw-monthly" checked />
+        <label for="sw-monthly">Monthly</label>
+        <input type="radio" name="sw-billing" id="sw-annual" />
+        <label for="sw-annual">Annual · save up to 21%</label>
+      </fieldset>
+
+      <ul class="sw__plans">
+        {
+          sw.plans.map((pl, i) => (
+            <li class:list={["sw__plan", { "sw__plan--featured": pl.featured }]} data-reveal style={`--d:${i}`}>
+              {pl.featured && <p class="badge badge--sw">Recommended</p>}
+              <p class="kicker kicker--plain">{pl.name}</p>
+              <p class="price__amount">
+                <span class="sw__m">${pl.monthly}</span>
+                <span class="sw__a">${pl.annual}</span>
+                <span class="price__per">/ month</span>
+              </p>
+              <p class="note">
+                <span class="sw__m">Billed monthly</span>
+                <span class="sw__a">Billed ${pl.annual * 12} yearly</span>
+              </p>
+              <Checks items={[pl.credits, ...pl.extras]} tone="sw" />
+              <a class:list={["button", pl.featured ? "button--sw" : "button--ghost"]} href={sw.url} rel="noopener">
+                Get {pl.name} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

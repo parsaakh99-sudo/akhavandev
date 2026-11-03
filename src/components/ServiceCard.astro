@@ -1,0 +1,13 @@
+---
+interface Props {
+  service: { title: string; body: string };
+  n: number;
+}
+const { service: s, n } = Astro.props;
+---
+
+<li class="panel service" data-reveal data-spot style={`--d:${n - 1}`}>
+  <span class="index" aria-hidden="true">{String(n).padStart(2, "0")}</span>
+  <h3 class="h3">{s.title}</h3>
+  <p class="muted">{s.body}</p>
+</li>

@@ -8,14 +8,14 @@ const next = site.afterPurchase;
 ---
 
 <Base title="Thank you · Akhavan Developers" description="Your payment went through." noindex>
-  <section class="frame thanks">
+  <section class="frame page-hero thanks">
     <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Payment received</p>
-    <h1 class="h2 h2--big">Thank you. You’re all set.</h1>
+    <h1 class="title">Thank you. You’re all set.</h1>
     <p class="lead" data-default>Stripe has emailed you a receipt. Here’s what happens next.</p>
 
     {
       Object.entries(next).map(([id, n]) => (
-        <div class="thanks__card" data-product={id} hidden={id !== "default"}>
+        <div class="panel thanks__card" data-product={id} hidden={id !== "default"}>
           <h2 class="h3 h3--big">{n.title}</h2>
           <ol class="thanks__steps">
             {n.steps.map((s) => <li>{s}</li>)}
@@ -25,16 +25,19 @@ const next = site.afterPurchase;
     }
 
     <div class="actions">
-      <a class="button button--glow" href="/">Back to the site <span aria-hidden="true">→</span></a>
+      <a class="button button--primary" href="/">Back to the site <span aria-hidden="true">→</span></a>
       <a class="link-arrow" href={mailto("Question about my order")}>Questions? {site.person.email}</a>
     </div>
   </section>
   <script>
-    const id = new URLSearchParams(location.search).get("p");
-    const card = id && document.querySelector<HTMLElement>(`.thanks__card[data-product="${CSS.escape(id)}"]`);
-    if (card) {
-      document.querySelector<HTMLElement>('.thanks__card[data-product="default"]')!.hidden = true;
-      card.hidden = false;
-    }
+    // Runs on every visit, including arrivals through the page-transition router.
+    document.addEventListener("astro:page-load", () => {
+      const id = new URLSearchParams(location.search).get("p");
+      const card = id && document.querySelector<HTMLElement>(`.thanks__card[data-product="${CSS.escape(id)}"]`);
+      if (card) {
+        document.querySelector<HTMLElement>('.thanks__card[data-product="default"]')!.hidden = true;
+        card.hidden = false;
+      }
+    });
   </script>
 </Base>

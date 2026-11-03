@@ -1,0 +1,21 @@
+---
+import Checks from "./Checks.astro";
+import { buyUrl } from "../lib/site";
+
+interface Props {
+  tier: { name: string; amount: string; featured?: boolean; summary: string; features: string[]; cta: string; stripe: string };
+  d?: number;
+}
+const { tier: t, d = 0 } = Astro.props;
+---
+
+<li class:list={["panel tier", { "panel--featured": t.featured }]} data-reveal data-spot style={`--d:${d}`}>
+  {t.featured && <p class="badge">Most popular</p>}
+  <p class="kicker">{t.name}</p>
+  <p class="price__amount price__amount--big"><span data-count>{t.amount}</span></p>
+  <p class="muted">{t.summary}</p>
+  <Checks items={t.features} />
+  <a class:list={["button", t.featured ? "button--primary" : "button--ghost"]} href={buyUrl(t.stripe, `${t.name} website`)} data-magnetic={t.featured ? "" : undefined}>
+    {t.cta} <span aria-hidden="true">→</span>
+  </a>
+</li>

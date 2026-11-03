@@ -3,6 +3,7 @@ import fontWoff2 from "@fontsource-variable/archivo/files/archivo-latin-standard
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 import { site, absoluteUrl, personJsonLd } from "../lib/site";
 
 // One variable face (weight and width axes), the closest open match to the logo's lettering.
@@ -19,6 +20,11 @@ interface Props {
 }
 
 const { title, description, noindex = false } = Astro.props;
+
+// Moving between pages: the old page lifts away, the new one rises in. Keyframes are in global.css.
+const leave = { name: "page-out", duration: "260ms", easing: "cubic-bezier(0.4, 0, 1, 1)", fillMode: "both" };
+const enter = { name: "page-in", duration: "560ms", easing: "cubic-bezier(0.22, 1, 0.36, 1)", delay: "80ms", fillMode: "both" };
+const pageMotion = { forwards: { old: leave, new: enter }, backwards: { old: leave, new: enter } };
 const canonical = absoluteUrl(Astro.url.pathname.replace(/\/index(\.html)?$/, "/"));
 const t = site.theme;
 const rootStyle = [
@@ -57,50 +63,98 @@ const rootStyle = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:locale" content="en_US" />
     <script is:inline>document.documentElement.classList.add("js");</script>
+    <ClientRouter fallback="swap" />
     {!noindex && <script type="application/ld+json" set:html={JSON.stringify(personJsonLd())} />}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="glow" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true" transition:persist></div>
     <Header />
-    <main id="main">
+    <main id="main" transition:animate={pageMotion}>
       <slot />
     </main>
     <Footer />
     <script>
-      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+      // All page motion. Set up once per page, including pages reached through the transition router.
+      // Everything here is skipped under prefers-reduced-motion, and nothing depends on it to be readable.
+      const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const fine = () => matchMedia("(hover: hover) and (pointer: fine)").matches;
+      let io: IntersectionObserver | undefined;
 
-      // Reveals: each [data-reveal] block rises into place once, the first time it scrolls into view.
-      const items = document.querySelectorAll<HTMLElement>("[data-reveal]");
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add("is-in");
-                io.unobserve(e.target);
-              }
-            }
-          },
-          { rootMargin: "0px 0px -8% 0px" },
-        );
-        items.forEach((el) => io.observe(el));
-      } else {
-        items.forEach((el) => el.classList.add("is-in"));
+      // The pointer light and the scroll bar live outside <main>, so they are bound once.
+      let bound = false;
+      function bindOnce() {
+        if (bound) return;
+        bound = true;
+        const root = document.documentElement;
+        addEventListener("pointermove", (e) => {
+          root.style.setProperty("--mx", `${e.clientX}px`);
+          root.style.setProperty("--my", `${e.clientY}px`);
+        }, { passive: true });
+        const progress = () => {
+          const max = root.scrollHeight - innerHeight;
+          root.style.setProperty("--progress", max > 0 ? String(scrollY / max) : "0");
+        };
+        addEventListener("scroll", progress, { passive: true });
+        addEventListener("resize", progress, { passive: true });
+        document.addEventListener("astro:page-load", progress);
+        progress();
       }
 
-      if (fine && !still) {
-        // A soft amber light follows the pointer across the page.
-        const root = document.documentElement;
-        addEventListener(
-          "pointermove",
-          (e) => {
-            root.style.setProperty("--mx", `${e.clientX}px`);
-            root.style.setProperty("--my", `${e.clientY}px`);
-          },
-          { passive: true },
-        );
+      // Prices count up from zero the first time they are seen, then settle on the written value.
+      function countUp(el: HTMLElement) {
+        const text = el.dataset.final ?? el.textContent ?? "";
+        el.dataset.final = text;
+        const target = Number(text.replace(/[^0-9.]/g, ""));
+        if (!target || still()) return;
+        const prefix = text.match(/^[^0-9]*/)?.[0] ?? "";
+        const t0 = performance.now();
+        const dur = 900;
+        const step = (t: number) => {
+          const k = Math.min(1, (t - t0) / dur);
+          const v = Math.round(target * (1 - Math.pow(1 - k, 3)));
+          el.textContent = k < 1 ? prefix + v.toLocaleString("en-US") : text;
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        // If frames are paused (a background tab), never leave a half-counted price on screen.
+        setTimeout(() => (el.textContent = text), dur + 150);
+      }
+
+      function setup() {
+        bindOnce();
+
+        // The menu marks the page you are on (the header persists across pages, so it is updated here).
+        const here = location.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
+        document.querySelectorAll<HTMLAnchorElement>(".nav a").forEach((a) => {
+          if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page");
+          else a.removeAttribute("aria-current");
+        });
+        // On phones the menu is a scrolling row: keep the current page's tab in view.
+        const navRow = document.querySelector<HTMLElement>(".header nav");
+        const current = navRow?.querySelector<HTMLElement>('[aria-current="page"]');
+        if (navRow && current && navRow.scrollWidth > navRow.clientWidth) {
+          navRow.scrollLeft = current.offsetLeft - navRow.clientWidth / 2 + current.offsetWidth / 2;
+        }
+
+        // Reveals: each [data-reveal] block rises into place once, the first time it scrolls into view.
+        io?.disconnect();
+        const items = document.querySelectorAll<HTMLElement>("[data-reveal]");
+        if ("IntersectionObserver" in window) {
+          io = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              e.target.classList.add("is-in");
+              e.target.querySelectorAll<HTMLElement>("[data-count]").forEach(countUp);
+              io!.unobserve(e.target);
+            }
+          }, { rootMargin: "0px 0px -8% 0px" });
+          items.forEach((el) => io!.observe(el));
+        } else {
+          items.forEach((el) => el.classList.add("is-in"));
+        }
+
+        if (!fine() || still()) return;
 
         // Cards light up where the pointer is.
         document.querySelectorAll<HTMLElement>("[data-spot]").forEach((el) => {
@@ -125,7 +179,22 @@ const rootStyle = [
             el.style.setProperty("--ry", "0deg");
           });
         });
+
+        // Primary buttons lean toward the pointer a little.
+        document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+          el.addEventListener("pointermove", (e) => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty("--tx", `${((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1)}px`);
+            el.style.setProperty("--ty", `${((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1)}px`);
+          });
+          el.addEventListener("pointerleave", () => {
+            el.style.setProperty("--tx", "0px");
+            el.style.setProperty("--ty", "0px");
+          });
+        });
       }
+
+      document.addEventListener("astro:page-load", setup);
     </script>
   </body>
 </html>

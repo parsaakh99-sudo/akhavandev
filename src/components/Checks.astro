@@ -1,0 +1,14 @@
+---
+// The one tick list every page uses.
+interface Props {
+  items: string[];
+  label?: string;
+  tone?: "accent" | "sw";
+  inline?: boolean;
+}
+const { items, label, tone = "accent", inline = false } = Astro.props;
+---
+
+<ul class:list={["checks", `checks--${tone}`, { "checks--inline": inline }]} aria-label={label}>
+  {items.map((i) => <li>{i}</li>)}
+</ul>
