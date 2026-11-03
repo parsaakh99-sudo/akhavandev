@@ -1,11 +1,19 @@
 ---
+import { Image } from "astro:assets";
+import mark from "../assets/brand/mark.png";
 import { site, mailto } from "../lib/site";
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <div class="frame footer__row">
-    <p>© {year} {site.person.name} · {site.person.area}</p>
-    <a href={mailto()}>{site.person.email}</a>
+  <div class="frame">
+    <p class="footer__giant" aria-hidden="true">Akhavan</p>
+    <div class="footer__row">
+      <span class="footer__brand">
+        <Image src={mark} alt="" width={28} height={28} densities={[1, 2]} />
+        © {year} {site.person.brand} · {site.person.area}
+      </span>
+      <a href={mailto()}>{site.person.email}</a>
+    </div>
   </div>
 </footer>

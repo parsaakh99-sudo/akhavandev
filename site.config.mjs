@@ -5,21 +5,22 @@ export default {
 
   person: {
     name: "Parsa Akhavan",
-    brand: "Akhavan Dev",
+    brand: "Akhavan Developers",
     role: "Web developer",
     area: "Dallas–Fort Worth, Texas",
     email: "parsa@akhavandev.com",
   },
 
   meta: {
-    title: "Akhavan Dev · Websites for local businesses in Dallas–Fort Worth",
+    title: "Akhavan Developers · Websites for local businesses in Dallas–Fort Worth",
     description:
-      "Parsa Akhavan designs and builds fast, hand-coded websites for salons, contractors and service businesses in Dallas–Fort Worth. You own everything at the end.",
+      "Akhavan Developers: Parsa Akhavan designs and builds fast, hand-coded websites for salons, contractors and service businesses in Dallas–Fort Worth. You own everything at the end.",
   },
 
   hero: {
     eyebrow: "Web developer · Dallas–Fort Worth",
-    title: "Websites that get local businesses found and booked.",
+    // The last word of the title is lit in the accent colour.
+    title: "Websites that get you booked.",
     lead:
       "I design and build fast, hand-coded sites for salons, contractors and service businesses. Before you pay anything, I make you a sample homepage. When it launches, the site, the code and the domain are all in your name.",
     cta: "Start a project",
@@ -86,6 +87,9 @@ export default {
     },
   ],
 
+  // Words that scroll across the band under the hero.
+  marquee: ["Hand-coded", "Fast on phones", "Booking built in", "Found on Google", "You own it all", "Free sample first"],
+
   promises: [
     "Hand-coded, so pages load fast",
     "Built for phones first",
@@ -107,13 +111,15 @@ export default {
     subject: "New website",
   },
 
+  // Brand colours from the Akhavan Developers logo: navy #0F1B2D, amber #F5A524.
   theme: {
-    bg: "#F4F1EA",
-    surface: "#FFFDF8",
-    ink: "#16140F",
-    muted: "#5E5A51",
-    accent: "#C2410C",
-    accentInk: "#FFFDF8",
-    font: '"Bricolage Grotesque Variable", "Bricolage Fallback", system-ui, sans-serif',
+    bg: "#0A1220",
+    surface: "#111C2E",
+    raised: "#16233A",
+    ink: "#F5F7FA",
+    muted: "#94A3B8",
+    accent: "#F5A524",
+    accentInk: "#0F1B2D",
+    font: '"Archivo Variable", "Archivo Fallback", system-ui, sans-serif',
   },
 };

@@ -1,11 +1,17 @@
 ---
+import { Image } from "astro:assets";
+import mark from "../assets/brand/mark.png";
 import { site, mailto } from "../lib/site";
 ---
 
 <header class="header">
   <div class="frame header__row">
-    <a class="wordmark" href="/" aria-label={`${site.person.brand}, home`}>
-      akhavan<span class="wordmark__dot">.</span>dev
+    <a class="logo" href="/" aria-label={`${site.person.brand}, home`}>
+      <Image src={mark} alt="" width={40} height={40} densities={[1, 2]} loading="eager" />
+      <span class="logo__text" aria-hidden="true">
+        <span class="logo__name">Akhavan</span>
+        <span class="logo__sub">Developers</span>
+      </span>
     </a>
     <nav aria-label="Main">
       <ul class="nav">
@@ -14,6 +20,6 @@ import { site, mailto } from "../lib/site";
         <li><a href="/#process">Process</a></li>
       </ul>
     </nav>
-    <a class="button button--small" href={mailto()}>Contact</a>
+    <a class="button button--small" href={mailto()}>Let’s talk</a>
   </div>
 </header>
