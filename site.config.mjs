@@ -123,6 +123,7 @@ export default {
       id: "study-buddy",
       slug: "study-buddy",
       tile: "big",
+      fit: "contain", // a screenshot: shown whole above the words, never cropped
       image: "studybuddy-desktop",
       imageMobile: "",
       from: "$19",
@@ -197,6 +198,12 @@ export default {
     photo: true, // a photograph, shown as it is rather than inside a browser window
     from: "$600",
     title: "Website packages",
+    // The current offer, shown above the packages and on each tier's second button.
+    deal: {
+      badge: "Buy 1, get 1 50% off",
+      title: "Two sites? The second is half price.",
+      body: "Buy any package and get a second website of the same package at 50% off. Great for a second location, a sister business, or a friend’s shop.",
+    },
     body: "Hand-coded, fast on phones, and yours to keep: the code, hosting and domain are in your name.",
     tiers: [
       {
@@ -206,6 +213,8 @@ export default {
         features: ["One page, built for phones first", "Tap-to-call and contact links", "Google-ready business details", "Launch on your domain"],
         cta: "Buy Starter",
         stripe: "https://buy.stripe.com/4gM8wQ8Yw7u354uedqaAw03",
+        // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
+        pair: { amount: "$900", was: "$1,200", stripe: "" },
       },
       {
         name: "Business",
@@ -215,6 +224,8 @@ export default {
         features: ["Up to 5 pages", "Services and prices", "Photo gallery and reviews", "Everything in Starter"],
         cta: "Buy Business",
         stripe: "https://buy.stripe.com/6oUeVedeMeWvbsS5GUaAw04",
+        // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
+        pair: { amount: "$1,200", was: "$1,600", stripe: "" },
       },
       {
         name: "Pro",
@@ -223,6 +234,8 @@ export default {
         features: ["Up to 8 pages", "Online booking connected", "Google Business Profile hookup", "Everything in Business"],
         cta: "Buy Pro",
         stripe: "https://buy.stripe.com/6oU3cw3Ec4hRgNc1qEaAw05",
+        // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
+        pair: { amount: "$1,500", was: "$2,000", stripe: "" },
       },
     ],
   },

@@ -1,0 +1,17 @@
+---
+import { site } from "../lib/site";
+const deal = site.websites.deal;
+// The deal shows only once its checkout links exist, so no one is sent to email to buy.
+const live = site.websites.tiers.some((t) => t.pair?.stripe);
+---
+
+{live && (
+<div class="deal" data-reveal>
+  <span class="deal__badge">{deal.badge}</span>
+  <div class="deal__text">
+    <p class="deal__title">{deal.title}</p>
+    <p class="muted">{deal.body}</p>
+  </div>
+  <span class="deal__shine" aria-hidden="true"></span>
+</div>
+)}

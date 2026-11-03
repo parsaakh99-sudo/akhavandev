@@ -2,18 +2,20 @@
 import { Image } from "astro:assets";
 import { img } from "../lib/images";
 import IPhone from "./IPhone.astro";
+import { site } from "../lib/site";
 
 // One tile in the products collage: a picture, a name and a starting price, leading to the product's page.
 interface Props {
-  product: { id: string; name: string; kind: string; tagline: string; image?: string; imageMobile?: string; from: string; tile?: string; href: string };
+  product: { id: string; name: string; kind: string; tagline: string; image?: string; imageMobile?: string; from: string; tile?: string; fit?: string; href: string };
   d?: number;
 }
 const { product: p, d = 0 } = Astro.props;
 const pic = img(p.image);
 ---
 
-<li class:list={["tile", `tile--${p.tile ?? "wide"}`, { "tile--sw": p.id === "scenewise" }]} data-reveal style={`--d:${d}`}>
+<li class:list={["tile", `tile--${p.tile ?? "wide"}`, { "tile--sw": p.id === "scenewise", "tile--contain": p.fit === "contain" }]} data-reveal style={`--d:${d}`}>
   <a class="tile__link" href={p.href}>
+    {p.id === "websites" && site.websites.tiers.some((t) => t.pair?.stripe) && <span class="tile__ribbon">{site.websites.deal.badge}</span>}
     <span class="tile__art" aria-hidden="true">
       {pic && <Image class="tile__pic" src={pic} alt="" widths={[480, 800, 1200]} sizes="(min-width: 960px) 50vw, 100vw" />}
       {p.imageMobile && <IPhone src={p.imageMobile} alt="" class="tile__phone" />}

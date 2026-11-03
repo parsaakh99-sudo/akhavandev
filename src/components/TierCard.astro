@@ -1,12 +1,22 @@
 ---
 import Checks from "./Checks.astro";
-import { buyUrl } from "../lib/site";
+import { site, buyUrl } from "../lib/site";
 
 interface Props {
-  tier: { name: string; amount: string; featured?: boolean; summary: string; features: string[]; cta: string; stripe: string };
+  tier: {
+    name: string;
+    amount: string;
+    featured?: boolean;
+    summary: string;
+    features: string[];
+    cta: string;
+    stripe: string;
+    pair?: { amount: string; was: string; stripe: string };
+  };
   d?: number;
 }
 const { tier: t, d = 0 } = Astro.props;
+const deal = site.websites.deal;
 ---
 
 <li class:list={["panel tier", { "panel--featured": t.featured }]} data-reveal data-spot style={`--d:${d}`}>
@@ -15,7 +25,19 @@ const { tier: t, d = 0 } = Astro.props;
   <p class="price__amount price__amount--big"><span data-count>{t.amount}</span></p>
   <p class="muted">{t.summary}</p>
   <Checks items={t.features} />
-  <a class:list={["button", t.featured ? "button--primary" : "button--ghost"]} href={buyUrl(t.stripe, `${t.name} website`)} data-magnetic={t.featured ? "" : undefined}>
-    {t.cta} <span aria-hidden="true">→</span>
-  </a>
+  <div class="tier__buy">
+    <a class:list={["button", t.featured ? "button--primary" : "button--ghost"]} href={buyUrl(t.stripe, `${t.name} website`)} data-magnetic={t.featured ? "" : undefined}>
+      {t.cta} <span aria-hidden="true">→</span>
+    </a>
+    {
+      t.pair?.stripe && (
+        <a class="pair" href={buyUrl(t.pair.stripe, `Two ${t.name} websites (${deal.badge})`)}>
+          <span class="pair__tag">{deal.badge}</span>
+          <span class="pair__line">
+            Buy 2 for <strong>{t.pair.amount}</strong> <s>{t.pair.was}</s> <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      )
+    }
+  </div>
 </li>

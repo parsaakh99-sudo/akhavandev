@@ -1461,6 +1461,184 @@ main,
   transform: translateX(var(--s-1));
 }
 
+/* a screenshot tile: the picture shown whole, on its own glass stage, with the words beneath it */
+.tile--contain .tile__link {
+  display: flex;
+  flex-direction: column;
+}
+
+.tile--contain .tile__art {
+  position: relative;
+  flex: 1;
+  min-height: 200px;
+  margin: var(--s-3) var(--s-3) 0;
+  border-radius: calc(var(--radius) - var(--s-2));
+  background:
+    radial-gradient(80% 70% at 30% 20%, rgb(59 91 219 / 0.25), transparent 70%),
+    rgb(255 255 255 / 0.03);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+.tile--contain .tile__pic {
+  inset: var(--s-3);
+  width: calc(100% - 2 * var(--s-3));
+  height: calc(100% - 2 * var(--s-3));
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  filter: drop-shadow(0 20px 30px rgb(0 0 0 / 0.5));
+}
+
+.tile--contain:hover .tile__pic {
+  transform: scale(1.03);
+}
+
+.tile--contain .tile__text {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  margin: var(--s-3);
+}
+
+@media (max-width: 719px) {
+  .tile--contain {
+    min-height: 520px;
+  }
+}
+
+/* the deal ribbon on the Website packages tile */
+.tile__ribbon {
+  position: absolute;
+  top: var(--s-3);
+  left: var(--s-3);
+  z-index: 3;
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--accent), #ffd27a);
+  color: var(--accent-ink);
+  font-size: var(--text-small);
+  font-weight: 800;
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--accent) 80%, transparent);
+  animation: ribbon 3.5s ease-in-out infinite;
+}
+
+@keyframes ribbon {
+  50% {
+    transform: translateY(-3px) rotate(-1.5deg);
+  }
+}
+
+/* ---------- the website deal ---------- */
+
+.deal {
+  position: relative;
+  display: grid;
+  gap: var(--s-3);
+  align-items: center;
+  margin-bottom: var(--s-5);
+  padding: var(--s-4) var(--s-5);
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-line);
+  background:
+    radial-gradient(600px 200px at 0% 50%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
+    var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow), 0 24px 60px -36px var(--accent);
+}
+
+@media (min-width: 720px) {
+  .deal {
+    grid-template-columns: auto 1fr;
+    gap: var(--s-5);
+  }
+}
+
+.deal__badge {
+  justify-self: start;
+  padding: var(--s-2) var(--s-4);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--accent), #ffd27a);
+  color: var(--accent-ink);
+  font-weight: 900;
+  font-stretch: var(--wide);
+  white-space: nowrap;
+}
+
+.deal__title {
+  font-size: var(--text-lead);
+  font-weight: 800;
+}
+
+/* a slow shine across the deal */
+.deal__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: shine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.tier__buy {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-3);
+}
+
+.pair {
+  display: grid;
+  gap: var(--s-1);
+  width: 100%;
+  padding: var(--s-3);
+  border-radius: var(--radius-s);
+  border: 1px dashed var(--accent-line);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  text-decoration: none;
+  transition: background var(--t-hover) var(--ease-out), border-color var(--t-hover) var(--ease-out);
+}
+
+.pair:hover {
+  border-style: solid;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.pair__tag {
+  font-size: var(--text-micro);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.pair__line {
+  font-weight: 700;
+}
+
+.pair__line s {
+  margin-left: var(--s-1);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.pair__line span {
+  display: inline-block;
+  transition: transform var(--t-hover) var(--ease-out);
+}
+
+.pair:hover .pair__line span {
+  transform: translateX(var(--s-1));
+}
+
 /* ---------- a product's own page ---------- */
 
 .photo {
@@ -1599,8 +1777,8 @@ main,
   grid-template-rows: auto auto auto 1fr auto;
 }
 
-.tier .button {
-  justify-self: start;
+.tier .tier__buy {
+  align-self: end;
 }
 
 /* ---------- services and steps ---------- */
