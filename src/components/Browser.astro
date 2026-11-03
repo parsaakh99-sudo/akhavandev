@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import { img } from "../lib/images";
+
+interface Props {
+  src: string;
+  alt: string;
+  url?: string;
+  class?: string;
+}
+const { src, alt, url, class: cls } = Astro.props;
+const image = img(src);
+---
+
+<figure class:list={["browser", cls]}>
+  <span class="browser__bar" aria-hidden="true"><i /><i /><i />{url && <span class="browser__url">{url}</span>}</span>
+  {image && <Image src={image} alt={alt} widths={[640, 960, 1440]} sizes="(min-width: 960px) 760px, 100vw" />}
+</figure>

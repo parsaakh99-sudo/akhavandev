@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import { img } from "../lib/images";
+
+// An iPhone 15 Pro: titanium frame, Dynamic Island, side buttons, and the screenshot as its screen.
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+}
+const { src, alt, class: cls } = Astro.props;
+const image = img(src);
+---
+
+<figure class:list={["iphone", cls]}>
+  <span class="iphone__btn iphone__btn--action" aria-hidden="true"></span>
+  <span class="iphone__btn iphone__btn--up" aria-hidden="true"></span>
+  <span class="iphone__btn iphone__btn--down" aria-hidden="true"></span>
+  <span class="iphone__btn iphone__btn--power" aria-hidden="true"></span>
+  <div class="iphone__screen">
+    {image && <Image src={image} alt={alt} widths={[240, 390]} sizes="220px" />}
+    <span class="iphone__island" aria-hidden="true"></span>
+    <span class="iphone__bar" aria-hidden="true"><span>9:41</span><span class="iphone__icons"><i></i><i></i><i></i></span></span>
+    <span class="iphone__home" aria-hidden="true"></span>
+  </div>
+</figure>

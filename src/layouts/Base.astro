@@ -127,7 +127,8 @@ const rootStyle = [
         // The menu marks the page you are on (the header persists across pages, so it is updated here).
         const here = location.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
         document.querySelectorAll<HTMLAnchorElement>(".nav a").forEach((a) => {
-          if (a.getAttribute("href") === here) a.setAttribute("aria-current", "page");
+          const href = a.getAttribute("href") ?? "";
+          if (here === href || here.startsWith(href + "/")) a.setAttribute("aria-current", "page");
           else a.removeAttribute("aria-current");
         });
         // On phones the menu is a scrolling row: keep the current page's tab in view.

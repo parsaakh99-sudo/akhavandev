@@ -9,6 +9,8 @@ export default {
     role: "Web developer",
     area: "Dallas–Fort Worth, Texas",
     email: "parsa@akhavandev.com",
+    phoneDisplay: "(945) 545-3785",
+    phoneDial: "+19455453785",
   },
 
   meta: {
@@ -32,7 +34,7 @@ export default {
       label: "Products",
       title: "Products · Akhavan Developers",
       description: "Study Buddy, the AI Receptionist, website packages from $600, and Scenewise. Pay securely with Stripe.",
-      hero: { eyebrow: "Products", title: "Things you can buy today.", lead: "Apps, tools and website packages, built by me. Pay securely with Stripe and get started right away." },
+      hero: { eyebrow: "Products", title: "Things you can buy today.", lead: "Apps, tools and website packages, built by me. Pick one to see what it does, what it costs, and buy it securely with Stripe." },
       teaser: { eyebrow: "Products", title: "Things you can buy today", lead: "Apps, tools and websites. Checkout takes a minute.", cta: "See all products" },
     },
     services: {
@@ -55,8 +57,8 @@ export default {
       path: "/contact",
       label: "Contact",
       title: "Contact · Akhavan Developers",
-      description: "Start a website project with Akhavan Developers. Email parsa@akhavandev.com; replies within a day.",
-      hero: { eyebrow: "Contact", title: "Let’s build your site.", lead: "Tell me what you do and where you are. I’ll reply within a day." },
+      description: "Start a website project with Akhavan Developers. Call or text (945) 545-3785, or email parsa@akhavandev.com.",
+      hero: { eyebrow: "Contact", title: "Let’s build your site.", lead: "Call, text or email. Tell me what you do and where you are, and I’ll get back to you within a day." },
     },
   },
 
@@ -119,6 +121,11 @@ export default {
   products: [
     {
       id: "study-buddy",
+      slug: "study-buddy",
+      tile: "big",
+      image: "studybuddy-desktop",
+      imageMobile: "",
+      from: "$19",
       name: "Study Buddy",
       kind: "Mac app",
       tagline: "A study sidebar that reads the question on your screen.",
@@ -129,6 +136,11 @@ export default {
     },
     {
       id: "ai-receptionist",
+      slug: "ai-receptionist",
+      tile: "wide",
+      image: "receptionist-desktop",
+      imageMobile: "receptionist-mobile",
+      from: "$99/mo",
       name: "AI Receptionist",
       kind: "For businesses",
       tagline: "An AI that answers your business phone.",
@@ -176,6 +188,13 @@ export default {
 
   // Website packages, sold as products.
   websites: {
+    slug: "websites",
+    kind: "For businesses",
+    name: "Website packages",
+    tagline: "A hand-coded site for your business, from $600.",
+    image: "tracys-desktop",
+    imageMobile: "tracys-mobile",
+    from: "$600",
     title: "Website packages",
     body: "Hand-coded, fast on phones, and yours to keep: the code, hosting and domain are in your name.",
     tiers: [
@@ -209,6 +228,13 @@ export default {
 
   // Scenewise, advertised on its own band. Prices from scenewise.net/#pricing (read 3 November 2026).
   scenewise: {
+    slug: "scenewise",
+    kind: "AI video app",
+    name: "Scenewise",
+    tagline: "AI videos, kids’ episodes and books, from an idea.",
+    image: "scenewise-desktop",
+    imageMobile: "scenewise-mobile",
+    from: "$15/mo",
     url: "https://scenewise.net",
     eyebrow: "Also by Akhavan Developers",
     title: "Make AI videos for Shorts, TikTok, Reels and ads.",
@@ -226,18 +252,22 @@ export default {
   services: [
     {
       title: "A new website",
+      image: "service-new-website",
       body: "Designed around your business, not a template. Written so customers know what you do, what it costs and how to book in the first few seconds.",
     },
     {
       title: "A redesign",
+      image: "service-redesign",
       body: "Your current site, rebuilt to load fast on phones, read clearly and keep the Google ranking you already have.",
     },
     {
       title: "Booking and contact",
+      image: "service-booking",
       body: "Your booking system, tap-to-call, text and contact forms connected and tested, so a visit turns into an appointment.",
     },
     {
       title: "Showing up on Google",
+      image: "service-google",
       body: "Search-friendly pages, business details Google can read, and a site that links up with your Google Business Profile.",
     },
   ],
@@ -253,10 +283,10 @@ export default {
   ],
 
   process: [
-    { title: "A short call", body: "We talk about your business, your customers and what the site has to do." },
-    { title: "A free sample", body: "I build a sample homepage with your real details. You decide if you want the rest." },
-    { title: "The build", body: "The full site, with your photos, services and booking. You review it before anything goes live." },
-    { title: "Launch and handoff", body: "The site goes live on your domain, and everything moves into your accounts, with a plain-English guide." },
+    { title: "A short call", image: "process-call", body: "We talk about your business, your customers and what the site has to do." },
+    { title: "A free sample", image: "process-sample", body: "I build a sample homepage with your real details. You decide if you want the rest." },
+    { title: "The build", image: "process-build", body: "The full site, with your photos, services and booking. You review it before anything goes live." },
+    { title: "Launch and handoff", image: "process-launch", body: "The site goes live on your domain, and everything moves into your accounts, with a plain-English guide." },
   ],
 
   contact: {

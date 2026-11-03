@@ -1,0 +1,20 @@
+---
+import Browser from "./Browser.astro";
+import IPhone from "./IPhone.astro";
+
+// A laptop-sized screenshot with the phone version standing in front of it; tilts toward the pointer.
+interface Props {
+  desktop: string;
+  mobile?: string;
+  name: string;
+  url?: string;
+}
+const { desktop, mobile, name, url } = Astro.props;
+---
+
+<div class="showcase" data-tilt>
+  <div class="showcase__media">
+    <Browser src={desktop} alt={`${name} on a laptop-sized screen`} url={url} />
+    {mobile && <IPhone src={mobile} alt={`${name} on an iPhone`} class="showcase__phone" />}
+  </div>
+</div>

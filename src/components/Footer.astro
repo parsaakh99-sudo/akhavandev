@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import mark from "../assets/brand/mark.png";
-import { site, mailto } from "../lib/site";
+import { site, mailto, tel } from "../lib/site";
 const year = new Date().getFullYear();
 const nav = ["work", "products", "services", "process", "contact"] as const;
 ---
@@ -19,7 +19,7 @@ const nav = ["work", "products", "services", "process", "contact"] as const;
           {nav.map((k) => <li><a href={site.pages[k].path}>{site.pages[k].label}</a></li>)}
         </ul>
       </nav>
-      <a href={mailto()}>{site.person.email}</a>
+      <span class="footer__contact"><a href={tel()}>{site.person.phoneDisplay}</a><a href={mailto()}>{site.person.email}</a></span>
     </div>
   </div>
 </footer>

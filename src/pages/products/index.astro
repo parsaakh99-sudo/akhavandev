@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import ProductTile from "../../components/ProductTile.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { site, allProducts } from "../../lib/site";
+
+const page = site.pages.products;
+const items = allProducts();
+---
+
+<Base title={page.title} description={page.description}>
+  <PageHero {...page.hero} />
+
+  <section class="section frame" aria-label="All products">
+    <ul class="collage">
+      {items.map((p, i) => <ProductTile product={p} d={i} />)}
+    </ul>
+    <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
+  </section>
+
+  <CtaBand title="Not sure which one fits?" body="Tell me about your business and I’ll point you to the right one. I reply within a day." />
+</Base>

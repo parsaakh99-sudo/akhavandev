@@ -1,5 +1,5 @@
 ---
-import { site, mailto } from "../lib/site";
+import { site, mailto, tel } from "../lib/site";
 interface Props {
   title?: string;
   body?: string;
@@ -13,7 +13,7 @@ const { title = site.contact.title, body = site.contact.body } = Astro.props;
     <p class="lead">{body}</p>
     <div class="actions">
       <a class="button button--primary" href={mailto()} data-magnetic>{site.contact.cta} <span aria-hidden="true">→</span></a>
-      <a class="link-arrow" href={site.pages.contact.path}>Other ways to reach me <span aria-hidden="true">→</span></a>
+      <a class="link-arrow" href={tel()}>Or call {site.person.phoneDisplay} <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>

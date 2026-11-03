@@ -1,19 +1,26 @@
 ---
+import { Image } from "astro:assets";
+import { img } from "../lib/images";
 // The process, as numbered steps joined by a line that draws in as it scrolls into view.
 interface Props {
-  steps: { title: string; body: string }[];
+  steps: { title: string; body: string; image?: string }[];
+  pictures?: boolean;
 }
-const { steps } = Astro.props;
+const { steps, pictures = false } = Astro.props;
 ---
 
-<ol class="steps" data-reveal data-steps>
+<ol class:list={["steps", { "steps--pictures": pictures }]} data-reveal data-steps>
   {
-    steps.map((p, i) => (
-      <li class="step" style={`--d:${i}`}>
-        <span class="index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-        <h3 class="h3">{p.title}</h3>
-        <p class="muted">{p.body}</p>
-      </li>
-    ))
+    steps.map((p, i) => {
+      const pic = pictures ? img(p.image) : undefined;
+      return (
+        <li class="step" style={`--d:${i}`}>
+          {pic && <span class="step__pic"><Image src={pic} alt="" widths={[400, 700]} sizes="(min-width: 1080px) 25vw, (min-width: 720px) 50vw, 100vw" /></span>}
+          <span class="index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="h3">{p.title}</h3>
+          <p class="muted">{p.body}</p>
+        </li>
+      );
+    })
   }
 </ol>

@@ -1,0 +1,109 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import Showcase from "../../components/Showcase.astro";
+import Checks from "../../components/Checks.astro";
+import TierCard from "../../components/TierCard.astro";
+import Scenewise from "../../components/Scenewise.astro";
+import ProductTile from "../../components/ProductTile.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { site, allProducts, buyUrl } from "../../lib/site";
+
+// One page per product: what it is, a look at it, what it costs, and the buy button.
+export function getStaticPaths() {
+  return allProducts().map((p) => ({ params: { slug: p.slug }, props: { id: p.id } }));
+}
+
+const { id } = Astro.props;
+const all = allProducts();
+const p = all.find((x) => x.id === id)!;
+const others = all.filter((x) => x.id !== id);
+const app = site.products.find((x) => x.id === id);
+const isWebsites = id === "websites";
+const isScenewise = id === "scenewise";
+const url = isScenewise ? "scenewise.net" : isWebsites ? "tracyslashandnails.com" : id === "ai-receptionist" ? "AI receptionist demo" : undefined;
+---
+
+<Base title={`${p.name} · Akhavan Developers`} description={p.tagline}>
+  <PageHero eyebrow={p.kind} title={p.name} lead={p.tagline}>
+    <a class="button button--primary" href="#buy" data-magnetic>See pricing <span aria-hidden="true">↓</span></a>
+    <a class="link-arrow" href={site.pages.products.path}>All products <span aria-hidden="true">→</span></a>
+  </PageHero>
+
+  <section class="section frame" aria-label={`A look at ${p.name}`}>
+    <div class="panel product-look" data-reveal>
+      <Showcase desktop={p.image!} mobile={p.imageMobile || undefined} name={p.name} url={url} />
+      {
+        app && (
+          <div class="panel__body">
+            <h2 class="h3">What it does</h2>
+            <p class="muted">{app.body}</p>
+            <Checks items={app.features} />
+          </div>
+        )
+      }
+      {
+        isWebsites && (
+          <div class="panel__body">
+            <h2 class="h3">What you get</h2>
+            <p class="muted">{site.websites.body}</p>
+            <Checks items={site.promises} />
+          </div>
+        )
+      }
+      {
+        isScenewise && (
+          <div class="panel__body">
+            <h2 class="h3">What it does</h2>
+            <p class="muted">{site.scenewise.body}</p>
+            <ul class="tags tags--sw" aria-label="Scenewise tools">{site.scenewise.tools.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    app && (
+      <section id="buy" class="section frame" aria-labelledby="buy-title">
+        <SectionHead id="buy-title" eyebrow="Pricing" title={app.prices.length > 1 ? "Two simple parts" : "One simple price"} lead={app.note} />
+        <ul class:list={["grid", app.prices.length > 1 ? "grid--2" : "grid--1"]}>
+          {app.prices.map((pr, i) => (
+            <li class:list={["panel price-card", { "panel--featured": i === 0 }]} data-reveal data-spot style={`--d:${i}`}>
+              <p class="kicker">{pr.label}</p>
+              <p class="price__amount price__amount--big"><span data-count>{pr.amount}</span>{pr.per && <span class="price__per">{pr.per}</span>}</p>
+              <a class:list={["button", i === 0 ? "button--primary button--big" : "button--ghost button--big"]} href={buyUrl(pr.stripe, `${p.name} (${pr.label})`)} data-magnetic>
+                {pr.cta} <span aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
+      </section>
+    )
+  }
+
+  {
+    isWebsites && (
+      <section id="buy" class="section frame" aria-labelledby="buy-title">
+        <SectionHead id="buy-title" eyebrow="Pricing" title="Pick a package" lead="Every package is hand-coded, built for phones first, and yours to keep." />
+        <ul class="grid grid--3 grid--tiers">
+          {site.websites.tiers.map((t, i) => <TierCard tier={t} d={i} />)}
+        </ul>
+        <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
+      </section>
+    )
+  }
+
+  {isScenewise && <div id="buy"><Scenewise /></div>}
+
+  <section class="section frame" aria-labelledby="more-title">
+    <SectionHead id="more-title" eyebrow="More products" title="You might also like" href={site.pages.products.path} cta="All products" />
+    <ul class="collage collage--row">
+      {others.map((o, i) => <ProductTile product={{ ...o, tile: "small" }} d={i} />)}
+    </ul>
+  </section>
+
+  <CtaBand />
+</Base>

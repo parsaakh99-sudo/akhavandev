@@ -23,7 +23,7 @@ const here = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/"
             const p = site.pages[k];
             return (
               <li>
-                <a href={p.path} aria-current={here === p.path ? "page" : undefined}>{p.label}</a>
+                <a href={p.path} aria-current={here === p.path || here.startsWith(p.path + "/") ? "page" : undefined}>{p.label}</a>
               </li>
             );
           })
