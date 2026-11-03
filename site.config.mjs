@@ -96,6 +96,38 @@ export default {
     },
   ],
 
+  // What the thank-you page (/thanks?p=<id>) tells a buyer right after Stripe checkout.
+  afterPurchase: {
+    default: {
+      title: "What happens next",
+      steps: ["Your receipt is in your inbox from Stripe.", "I’ll email you within one business day to get started.", "Reply to that email with any questions, any time."],
+    },
+    "study-buddy": {
+      title: "Your copy of Study Buddy",
+      steps: [
+        "Your download link is on its way to the email you paid with, usually within a few hours.",
+        "Open the app, then allow Screen Recording when it asks, so it can see your screen.",
+        "Press ⌥⌘A in any app to answer the question on screen.",
+      ],
+    },
+    "ai-receptionist": {
+      title: "Setting up your AI Receptionist",
+      steps: [
+        "I’ll email you within one business day to book a 20-minute setup call.",
+        "Have your hours, services, prices and common questions handy; that’s what it answers from.",
+        "Your receptionist is usually live on its own phone number within a week.",
+      ],
+    },
+    website: {
+      title: "Starting your website",
+      steps: [
+        "I’ll email you within one business day to schedule a short kickoff call.",
+        "Gather your logo, photos, services and prices; I’ll send a checklist.",
+        "You’ll see the first version of your homepage within a week.",
+      ],
+    },
+  },
+
   // Website packages, sold as products.
   websites: {
     title: "Website packages",

@@ -1429,3 +1429,54 @@ main,
     transform: none;
   }
 }
+
+/* ---------- thank-you page ---------- */
+
+.thanks {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-4);
+  padding-block: var(--s-8);
+}
+
+.thanks__card {
+  display: grid;
+  gap: var(--s-4);
+  width: 100%;
+  max-width: 720px;
+  padding: var(--s-5);
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: var(--surface);
+}
+
+.thanks__card[hidden] {
+  display: none;
+}
+
+.thanks__steps {
+  display: grid;
+  gap: var(--s-3);
+  counter-reset: t;
+}
+
+.thanks__steps li {
+  display: flex;
+  gap: var(--s-3);
+  color: var(--muted);
+  counter-increment: t;
+}
+
+.thanks__steps li::before {
+  content: counter(t);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  font-size: var(--text-small);
+}
