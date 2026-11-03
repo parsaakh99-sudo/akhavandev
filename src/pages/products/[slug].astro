@@ -6,6 +6,7 @@ import Showcase from "../../components/Showcase.astro";
 import Checks from "../../components/Checks.astro";
 import TierCard from "../../components/TierCard.astro";
 import DealBanner from "../../components/DealBanner.astro";
+import CarePlan from "../../components/CarePlan.astro";
 import Scenewise from "../../components/Scenewise.astro";
 import ProductTile from "../../components/ProductTile.astro";
 import CtaBand from "../../components/CtaBand.astro";
@@ -96,11 +97,12 @@ const url = isScenewise ? "scenewise.net" : id === "ai-receptionist" ? "AI recep
   {
     isWebsites && (
       <section id="buy" class="section frame" aria-labelledby="buy-title">
-        <SectionHead id="buy-title" eyebrow="Pricing" title="Pick a package" lead="Every package is hand-coded, built for phones first, and yours to keep." />
+        <SectionHead id="buy-title" eyebrow="Pricing" title="Pick a package" lead={`${site.websites.founding} Every package is hand-coded, built for phones first, and yours to keep.`} />
         <DealBanner />
         <ul class="grid grid--3 grid--tiers">
           {site.websites.tiers.map((t, i) => <TierCard tier={t} d={i} />)}
         </ul>
+        <CarePlan />
         <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
       </section>
     )

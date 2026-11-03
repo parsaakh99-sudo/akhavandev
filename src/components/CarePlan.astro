@@ -1,0 +1,24 @@
+---
+import Checks from "./Checks.astro";
+import { site, buyUrl } from "../lib/site";
+
+// The monthly care add-on, under the website packages. Shown only once its checkout link exists.
+const c = site.websites.care;
+---
+
+{
+  c?.stripe && (
+    <div class="panel care" data-reveal data-spot>
+      <div>
+        <p class="kicker">{c.eyebrow}</p>
+        <h3 class="h3">{c.name}</h3>
+        <p class="muted">{c.summary}</p>
+      </div>
+      <Checks items={c.features} />
+      <div class="tier__buy">
+        <p class="price__amount price__amount--big"><span data-count>{c.amount}</span><span class="price__per">{c.per}</span></p>
+        <a class="button button--ghost" href={buyUrl(c.stripe, `${c.name}`)}>{c.cta} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  )
+}

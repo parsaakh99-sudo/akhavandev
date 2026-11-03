@@ -33,7 +33,7 @@ export default {
       path: "/products",
       label: "Products",
       title: "Products · Akhavan Developers",
-      description: "Study Buddy, the AI Receptionist, website packages from $600, and Scenewise. Pay securely with Stripe.",
+      description: "Study Buddy, the AI Receptionist, website packages from $750, and Scenewise. Pay securely with Stripe.",
       hero: { eyebrow: "Products", title: "Things you can buy today.", lead: "Apps, tools and website packages, built by me. Pick one to see what it does, what it costs, and buy it securely with Stripe." },
       teaser: { eyebrow: "Products", title: "Things you can buy today", lead: "Apps, tools and websites. Checkout takes a minute.", cta: "See all products" },
     },
@@ -174,6 +174,14 @@ export default {
         "Your receptionist is usually live on its own phone number within a week.",
       ],
     },
+    care: {
+      title: "Your care plan is on",
+      steps: [
+        "Your receipt is in your inbox from Stripe, and it renews monthly until you cancel.",
+        "Email me any edits you need; small changes are done within two business days.",
+        "I’ll check your site, hosting and booking links every month.",
+      ],
+    },
     website: {
       title: "Starting your website",
       steps: [
@@ -189,52 +197,65 @@ export default {
     slug: "websites",
     kind: "For businesses",
     name: "Website packages",
-    tagline: "A hand-coded site for your business, from $600.",
+    tagline: "A hand-coded site for your business, from $750.",
     image: "website-packages",
     imageMobile: "",
     photo: true, // a photograph, shown as it is rather than inside a browser window
-    from: "$600",
+    from: "$750",
     title: "Website packages",
+    // Shown with the pricing. Raise the prices once the first 5 clients have signed.
+    founding: "Founding-client prices for my first 5 clients.",
     // The current offer, shown above the packages and on each tier's second button.
     deal: {
-      badge: "Buy 1, get 1 50% off",
-      title: "Two sites? The second is half price.",
-      body: "Buy any package and get a second website of the same package at 50% off. Great for a second location, a sister business, or a friend’s shop.",
+      badge: "Second site 30% off",
+      title: "Two sites? The second is 30% off.",
+      body: "Buy any package and get a second website of the same package at 30% off. Great for a second location, a sister business, or a friend’s shop.",
     },
     body: "Hand-coded, fast on phones, and yours to keep: the code, hosting and domain are in your name.",
     tiers: [
       {
         name: "Starter",
-        amount: "$600",
+        amount: "$750",
         summary: "A one-page site that says what you do and gets people to call or book.",
         features: ["One page, built for phones first", "Tap-to-call and contact links", "Google-ready business details", "Launch on your domain"],
         cta: "Buy Starter",
-        stripe: "https://buy.stripe.com/4gM8wQ8Yw7u354uedqaAw03",
-        // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
-        pair: { amount: "$900", was: "$1,200", stripe: "https://buy.stripe.com/9B68wQb6E29JcwWfhuaAw06" },
+        stripe: "https://buy.stripe.com/6oU7sMb6EdSreF43yMaAw09",
+        // Two sites of this package, the second 30% off. Stripe Payment Link for the bundle.
+        pair: { amount: "$1,275", was: "$1,500", stripe: "https://buy.stripe.com/fZu8wQb6EeWv7cC1qEaAw0c" },
       },
       {
         name: "Business",
-        amount: "$800",
+        amount: "$1,250",
         featured: true,
         summary: "A full site for a business with several services to show.",
         features: ["Up to 5 pages", "Services and prices", "Photo gallery and reviews", "Everything in Starter"],
         cta: "Buy Business",
-        stripe: "https://buy.stripe.com/6oUeVedeMeWvbsS5GUaAw04",
-        // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
-        pair: { amount: "$1,200", was: "$1,600", stripe: "https://buy.stripe.com/7sY14o4Ig29J40q0mAaAw07" },
+        stripe: "https://buy.stripe.com/8x25kEeiQbKjcwWb1eaAw0a",
+        pair: { amount: "$2,125", was: "$2,500", stripe: "https://buy.stripe.com/9B614o0s029J54u4CQaAw0d" },
+        // $0 down: a $129 monthly subscription. Cancel it in Stripe after the 12th payment.
+        monthly: { amount: "$129", count: 12, stripe: "https://buy.stripe.com/dRm6oIfmU8y7eF4glyaAw0g" },
       },
       {
         name: "Pro",
-        amount: "$1,000",
+        amount: "$1,950",
         summary: "The full site with online booking connected and tested.",
         features: ["Up to 8 pages", "Online booking connected", "Google Business Profile hookup", "Everything in Business"],
         cta: "Buy Pro",
-        stripe: "https://buy.stripe.com/6oU3cw3Ec4hRgNc1qEaAw05",
-        // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
-        pair: { amount: "$1,500", was: "$2,000", stripe: "https://buy.stripe.com/7sYaEY3Ec4hR7cCglyaAw08" },
+        stripe: "https://buy.stripe.com/28EfZideMcOn2Wm2uIaAw0b",
+        pair: { amount: "$3,315", was: "$3,900", stripe: "https://buy.stripe.com/6oU14ocaI15F0Oe8T6aAw0e" },
       },
     ],
+    // Optional monthly care, for any package. A Stripe subscription.
+    care: {
+      eyebrow: "Add-on for any package",
+      name: "Care plan",
+      amount: "$49",
+      per: "/mo",
+      summary: "Keep your site fast and up to date without thinking about it. Cancel any time.",
+      features: ["Hosting and uptime checks", "Small text and photo edits", "Booking and contact links kept working"],
+      cta: "Add the care plan",
+      stripe: "https://buy.stripe.com/3cIdRa5Mk6pZ1Si4CQaAw0f",
+    },
   },
 
   // Scenewise, advertised on its own band. Prices from scenewise.net/#pricing (read 3 November 2026).

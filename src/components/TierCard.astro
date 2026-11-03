@@ -12,6 +12,7 @@ interface Props {
     cta: string;
     stripe: string;
     pair?: { amount: string; was: string; stripe: string };
+    monthly?: { amount: string; count: number; stripe: string };
   };
   d?: number;
 }
@@ -36,6 +37,13 @@ const deal = site.websites.deal;
           <span class="pair__line">
             Buy 2 for <strong>{t.pair.amount}</strong> <s>{t.pair.was}</s> <span aria-hidden="true">→</span>
           </span>
+        </a>
+      )
+    }
+    {
+      t.monthly?.stripe && (
+        <a class="monthly" href={buyUrl(t.monthly.stripe, `${t.name} website, paid monthly`)}>
+          Or <strong>$0 down</strong>, {t.monthly.amount}/mo for {t.monthly.count} months <span aria-hidden="true">→</span>
         </a>
       )
     }

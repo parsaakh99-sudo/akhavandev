@@ -1639,6 +1639,46 @@ main,
   transform: translateX(var(--s-1));
 }
 
+/* $0-down option under a package's buttons. */
+.monthly {
+  color: var(--muted);
+  font-size: var(--text-small);
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.25em;
+  transition: color var(--t-hover) var(--ease-out), text-decoration-color var(--t-hover) var(--ease-out);
+}
+
+.monthly strong {
+  color: var(--ink);
+}
+
+.monthly:hover {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+}
+
+/* The monthly care add-on, a wide card under the packages. */
+.care {
+  display: grid;
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+  padding: var(--s-5);
+}
+
+.care .price__amount {
+  margin: 0;
+}
+
+@media (min-width: 960px) {
+  .care {
+    grid-template-columns: 1.2fr 1fr auto;
+    align-items: center;
+    gap: var(--s-6);
+    padding: var(--s-5) var(--s-6);
+  }
+}
+
 /* ---------- a product's own page ---------- */
 
 .photo {
