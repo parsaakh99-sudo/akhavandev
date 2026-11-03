@@ -2,8 +2,8 @@
 import { Image } from "astro:assets";
 import { img } from "../lib/images";
 
-// An iPhone 15 Pro, drawn simply: a matte black body with a thin graphite edge, slim side buttons,
-// the Dynamic Island, and the screenshot as the whole screen. Nothing is painted over the screenshot.
+// An iPhone 15 Pro: a thin titanium rim, a hairline black bezel, the Dynamic Island,
+// and a glass reflection across the screen. The screenshot is the whole screen.
 interface Props {
   src: string;
   alt: string;
@@ -18,8 +18,11 @@ const image = img(src);
   <span class="iphone__btn iphone__btn--up" aria-hidden="true"></span>
   <span class="iphone__btn iphone__btn--down" aria-hidden="true"></span>
   <span class="iphone__btn iphone__btn--power" aria-hidden="true"></span>
-  <div class="iphone__screen">
-    {image && <Image src={image} alt={alt} widths={[240, 390, 600]} sizes="240px" />}
-    <span class="iphone__island" aria-hidden="true"></span>
+  <div class="iphone__body">
+    <div class="iphone__screen">
+      {image && <Image src={image} alt={alt} widths={[240, 390, 600]} sizes="240px" />}
+      <span class="iphone__island" aria-hidden="true"></span>
+      <span class="iphone__glare" aria-hidden="true"></span>
+    </div>
   </div>
 </figure>
