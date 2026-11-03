@@ -79,7 +79,7 @@ export default {
       body: "Press ⌥⌘A in any app or website and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again.",
       features: ["Works over every app and site", "Answer, explain, or paste a question", "Fast or most-accurate mode"],
       note: "For macOS 14 or later. Uses your own Claude subscription.",
-      prices: [{ label: "One-time", amount: "$19", per: "", cta: "Buy Study Buddy", stripe: "" }],
+      prices: [{ label: "One-time", amount: "$19", per: "", cta: "Buy Study Buddy", stripe: "https://buy.stripe.com/bJe4gA7Us7u3bsSglyaAw00" }],
     },
     {
       id: "ai-receptionist",
@@ -90,8 +90,8 @@ export default {
       features: ["Books into your calendar", "Never makes up prices or policies", "Set up for salons, restaurants, dental, home services and more"],
       note: "Setup builds your business profile and phone line. The monthly plan keeps it running.",
       prices: [
-        { label: "Setup", amount: "$299", per: "one-time", cta: "Pay setup", stripe: "" },
-        { label: "Monthly", amount: "$99", per: "/ month", cta: "Start monthly", stripe: "" },
+        { label: "Setup", amount: "$299", per: "one-time", cta: "Pay setup", stripe: "https://buy.stripe.com/00waEY2A84hRbsS8T6aAw01" },
+        { label: "Monthly", amount: "$99", per: "/ month", cta: "Start monthly", stripe: "https://buy.stripe.com/00w9AU0s0bKj8gGedqaAw02" },
       ],
     },
   ],
@@ -139,7 +139,7 @@ export default {
         summary: "A one-page site that says what you do and gets people to call or book.",
         features: ["One page, built for phones first", "Tap-to-call and contact links", "Google-ready business details", "Launch on your domain"],
         cta: "Buy Starter",
-        stripe: "",
+        stripe: "https://buy.stripe.com/4gM8wQ8Yw7u354uedqaAw03",
       },
       {
         name: "Business",
@@ -148,7 +148,7 @@ export default {
         summary: "A full site for a business with several services to show.",
         features: ["Up to 5 pages", "Services and prices", "Photo gallery and reviews", "Everything in Starter"],
         cta: "Buy Business",
-        stripe: "",
+        stripe: "https://buy.stripe.com/6oUeVedeMeWvbsS5GUaAw04",
       },
       {
         name: "Pro",
@@ -156,7 +156,7 @@ export default {
         summary: "The full site with online booking connected and tested.",
         features: ["Up to 8 pages", "Online booking connected", "Google Business Profile hookup", "Everything in Business"],
         cta: "Buy Pro",
-        stripe: "",
+        stripe: "https://buy.stripe.com/6oU3cw3Ec4hRgNc1qEaAw05",
       },
     ],
   },
