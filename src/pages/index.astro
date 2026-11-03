@@ -3,12 +3,12 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import Base from "../layouts/Base.astro";
 import mark from "../assets/brand/mark.png";
-import { site, mailto } from "../lib/site";
+import { site, mailto, buyUrl } from "../lib/site";
 
 const shots = import.meta.glob<{ default: ImageMetadata }>("../assets/work/*.png", { eager: true });
 const shot = (name: string) => (name ? shots[`../assets/work/${name}.png`]?.default : undefined);
 const work = site.work.filter((w) => w.show);
-const { hero, services, promises, process, contact, marquee } = site;
+const { hero, services, promises, process, contact, marquee, products, websites, scenewise: sw } = site;
 
 // The headline animates in word by word; its last word is lit in the accent.
 const words = hero.title.split(" ");
@@ -104,9 +104,123 @@ const last = words.length - 1;
     )
   }
 
+  <section id="products" class="section frame" aria-labelledby="products-title">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow"><span class="num">02</span> Products</p>
+      <h2 id="products-title" class="h2">Things you can buy today</h2>
+      <p class="lead">Pay securely with Stripe. Apps, tools and websites, built by me.</p>
+    </div>
+
+    <ul class="products">
+      {
+        products.map((p, i) => (
+          <li class="product" data-reveal data-spot style={`--d:${i}`}>
+            <p class="product__kind">{p.kind}</p>
+            <h3 class="h3 h3--big">{p.name}</h3>
+            <p class="product__tagline">{p.tagline}</p>
+            <p class="product__body">{p.body}</p>
+            <ul class="checks">
+              {p.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <div class="product__buy">
+              {p.prices.map((pr, j) => (
+                <div class="price">
+                  <p class="price__label">{pr.label}</p>
+                  <p class="price__amount">
+                    {pr.amount}
+                    {pr.per && <span class="price__per">{pr.per}</span>}
+                  </p>
+                  <a class:list={["button", j === 0 ? "button--glow" : "button--ghost"]} href={buyUrl(pr.stripe, `${p.name} (${pr.label})`)}>
+                    {pr.cta} <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              ))}
+            </div>
+            <p class="product__note">{p.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="tiers-head" data-reveal>
+      <h3 class="h3 h3--big">{websites.title}</h3>
+      <p class="lead">{websites.body}</p>
+    </div>
+    <ul class="tiers">
+      {
+        websites.tiers.map((t, i) => (
+          <li class:list={["tier", { "tier--featured": t.featured }]} data-reveal data-spot style={`--d:${i}`}>
+            {t.featured && <p class="tier__badge">Most popular</p>}
+            <p class="tier__name">{t.name}</p>
+            <p class="price__amount price__amount--big">{t.amount}</p>
+            <p class="tier__summary">{t.summary}</p>
+            <ul class="checks">
+              {t.features.map((f) => <li>{f}</li>)}
+            </ul>
+            <a class:list={["button", t.featured ? "button--glow" : "button--ghost"]} href={buyUrl(t.stripe, `${t.name} website`)}>
+              {t.cta} <span aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="secure" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
+  </section>
+
+  <section id="scenewise" class="sw" aria-labelledby="sw-title">
+    <div class="frame">
+      <div class="sw__card" data-reveal>
+        <div class="sw__intro">
+          <p class="eyebrow sw__eyebrow">{sw.eyebrow}</p>
+          <h2 id="sw-title" class="h2"><span class="sw__brand">Scenewise</span> {sw.title}</h2>
+          <p class="lead">{sw.body}</p>
+          <ul class="sw__tools" aria-label="Scenewise tools">
+            {sw.tools.map((t) => <li>{t}</li>)}
+          </ul>
+          <a class="button button--sw" href={sw.url} rel="noopener">{sw.cta} <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <fieldset class="sw__toggle">
+          <legend class="sr-only">Billing</legend>
+          <input type="radio" name="sw-billing" id="sw-monthly" checked />
+          <label for="sw-monthly">Monthly</label>
+          <input type="radio" name="sw-billing" id="sw-annual" />
+          <label for="sw-annual">Annual · save up to 21%</label>
+        </fieldset>
+
+        <ul class="sw__plans">
+          {
+            sw.plans.map((pl) => (
+              <li class:list={["sw__plan", { "sw__plan--featured": pl.featured }]}>
+                {pl.featured && <p class="tier__badge tier__badge--sw">Recommended</p>}
+                <p class="tier__name">{pl.name}</p>
+                <p class="price__amount">
+                  <span class="sw__m">${pl.monthly}</span>
+                  <span class="sw__a">${pl.annual}</span>
+                  <span class="price__per">/ month</span>
+                </p>
+                <p class="sw__billed">
+                  <span class="sw__m">Billed monthly</span>
+                  <span class="sw__a">Billed ${pl.annual * 12} yearly</span>
+                </p>
+                <ul class="checks checks--sw">
+                  <li>{pl.credits}</li>
+                  {pl.extras.map((x) => <li>{x}</li>)}
+                </ul>
+                <a class:list={["button", pl.featured ? "button--sw" : "button--ghost"]} href={sw.url} rel="noopener">
+                  Get {pl.name} <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section id="services" class="section frame" aria-labelledby="services-title">
     <div class="section__head" data-reveal>
-      <p class="eyebrow"><span class="num">02</span> Services</p>
+      <p class="eyebrow"><span class="num">03</span> Services</p>
       <h2 id="services-title" class="h2">What I can build for you</h2>
     </div>
     <ul class="cards">
@@ -127,7 +241,7 @@ const last = words.length - 1;
 
   <section id="process" class="section frame" aria-labelledby="process-title">
     <div class="section__head" data-reveal>
-      <p class="eyebrow"><span class="num">03</span> Process</p>
+      <p class="eyebrow"><span class="num">04</span> Process</p>
       <h2 id="process-title" class="h2">How it works</h2>
     </div>
     <ol class="steps">

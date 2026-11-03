@@ -17,3 +17,6 @@ export const personJsonLd = () => ({
   email: site.person.email,
   description: site.meta.description,
 });
+
+// A Buy button goes to its Stripe Payment Link, or, while none is set, opens an email to order.
+export const buyUrl = (stripe: string, name: string) => stripe || mailto(`Buy: ${name}`);

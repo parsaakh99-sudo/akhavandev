@@ -68,6 +68,83 @@ export default {
     },
   ],
 
+  // Products people can buy. Each `stripe` is a Stripe Payment Link (https://buy.stripe.com/...).
+  // While a link is empty, its button opens an email to you instead, so nothing is ever broken.
+  products: [
+    {
+      id: "study-buddy",
+      name: "Study Buddy",
+      kind: "Mac app",
+      tagline: "A study sidebar that reads the question on your screen.",
+      body: "Press ⌥⌘A in any app or website and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again.",
+      features: ["Works over every app and site", "Answer, explain, or paste a question", "Fast or most-accurate mode"],
+      note: "For macOS 14 or later. Uses your own Claude subscription.",
+      prices: [{ label: "One-time", amount: "$19", per: "", cta: "Buy Study Buddy", stripe: "" }],
+    },
+    {
+      id: "ai-receptionist",
+      name: "AI Receptionist",
+      kind: "For businesses",
+      tagline: "An AI that answers your business phone.",
+      body: "It talks with callers, books, moves and cancels appointments, answers questions from your business’s own facts, takes messages, texts confirmations, and hands the call to a person when needed.",
+      features: ["Books into your calendar", "Never makes up prices or policies", "Set up for salons, restaurants, dental, home services and more"],
+      note: "Setup builds your business profile and phone line. The monthly plan keeps it running.",
+      prices: [
+        { label: "Setup", amount: "$299", per: "one-time", cta: "Pay setup", stripe: "" },
+        { label: "Monthly", amount: "$99", per: "/ month", cta: "Start monthly", stripe: "" },
+      ],
+    },
+  ],
+
+  // Website packages, sold as products.
+  websites: {
+    title: "Website packages",
+    body: "Hand-coded, fast on phones, and yours to keep: the code, hosting and domain are in your name.",
+    tiers: [
+      {
+        name: "Starter",
+        amount: "$600",
+        summary: "A one-page site that says what you do and gets people to call or book.",
+        features: ["One page, built for phones first", "Tap-to-call and contact links", "Google-ready business details", "Launch on your domain"],
+        cta: "Buy Starter",
+        stripe: "",
+      },
+      {
+        name: "Business",
+        amount: "$800",
+        featured: true,
+        summary: "A full site for a business with several services to show.",
+        features: ["Up to 5 pages", "Services and prices", "Photo gallery and reviews", "Everything in Starter"],
+        cta: "Buy Business",
+        stripe: "",
+      },
+      {
+        name: "Pro",
+        amount: "$1,000",
+        summary: "The full site with online booking connected and tested.",
+        features: ["Up to 8 pages", "Online booking connected", "Google Business Profile hookup", "Everything in Business"],
+        cta: "Buy Pro",
+        stripe: "",
+      },
+    ],
+  },
+
+  // Scenewise, advertised on its own band. Prices from scenewise.net/#pricing (read 3 November 2026).
+  scenewise: {
+    url: "https://scenewise.net",
+    eyebrow: "Also by Akhavan Developers",
+    title: "Make AI videos for Shorts, TikTok, Reels and ads.",
+    body: "Scenewise turns a quick idea into a post in minutes. Every plan includes all 5 models, any video length, 1080p with no watermark, Book Studio, Kids Studio and the Creator Guide. Cancel any time.",
+    tools: ["Video Generator", "Shorts Studio", "Marketing Studio", "Kids Studio", "Book Studio", "Avatars"],
+    plans: [
+      { name: "Starter", monthly: 19, annual: 15, credits: "1,200 credits a month", extras: ["1080p, no watermark"] },
+      { name: "Pro", monthly: 39, annual: 32, credits: "2,800 credits a month", extras: ["3 videos at once"], featured: true },
+      { name: "Creator", monthly: 99, annual: 82, credits: "7,500 credits a month", extras: ["4K output", "Priority queue", "5 videos at once"] },
+      { name: "Studio", monthly: 199, annual: 165, credits: "16,000 credits a month", extras: ["4K output", "Priority queue", "8 videos at once"] },
+    ],
+    cta: "Try Scenewise",
+  },
+
   services: [
     {
       title: "A new website",
