@@ -214,7 +214,7 @@ export default {
         cta: "Buy Starter",
         stripe: "https://buy.stripe.com/4gM8wQ8Yw7u354uedqaAw03",
         // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
-        pair: { amount: "$900", was: "$1,200", stripe: "" },
+        pair: { amount: "$900", was: "$1,200", stripe: "https://buy.stripe.com/9B68wQb6E29JcwWfhuaAw06" },
       },
       {
         name: "Business",
@@ -225,7 +225,7 @@ export default {
         cta: "Buy Business",
         stripe: "https://buy.stripe.com/6oUeVedeMeWvbsS5GUaAw04",
         // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
-        pair: { amount: "$1,200", was: "$1,600", stripe: "" },
+        pair: { amount: "$1,200", was: "$1,600", stripe: "https://buy.stripe.com/7sY14o4Ig29J40q0mAaAw07" },
       },
       {
         name: "Pro",
@@ -235,7 +235,7 @@ export default {
         cta: "Buy Pro",
         stripe: "https://buy.stripe.com/6oU3cw3Ec4hRgNc1qEaAw05",
         // Buy 1, get 1 50% off: two sites of this package. Stripe Payment Link for the bundle.
-        pair: { amount: "$1,500", was: "$2,000", stripe: "" },
+        pair: { amount: "$1,500", was: "$2,000", stripe: "https://buy.stripe.com/7sYaEY3Ec4hR7cCglyaAw08" },
       },
     ],
   },
