@@ -51,13 +51,14 @@ export const tel = () => `tel:${site.person.phoneDial}`;
 export const sms = () => `sms:${site.person.phoneDial}`;
 
 // Every product, in one shape, for the collage and the product pages.
-// Order is the collage's: the big tile and the tall one share the top rows, the two wide ones sit under them.
+// Order is the collage's, a two-by-two grid: website packages and Scenewise on top,
+// Study Buddy and the AI Receptionist side by side under them.
 export const allProducts = () => {
   const [buddy, receptionist] = site.products.map((p) => ({ ...p, href: `/products/${p.slug}` }));
   return [
-    buddy,
-    { ...site.websites, id: "websites", tile: "tall", href: `/products/${site.websites.slug}` },
-    receptionist,
+    { ...site.websites, id: "websites", tile: "wide", href: `/products/${site.websites.slug}` },
     { ...site.scenewise, id: "scenewise", tile: "wide", href: `/products/${site.scenewise.slug}` },
+    { ...buddy, tile: "wide" },
+    { ...receptionist, tile: "wide" },
   ];
 };
