@@ -2364,3 +2364,17 @@ main,
     background: color-mix(in srgb, var(--bg) 94%, transparent);
   }
 }
+
+/* ---------- plan cards: 5 plans as 3 + 2, the second row centred ---------- */
+
+@media (min-width: 960px) {
+  .grid--plans {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .grid--plans > li {
+    grid-column: span 2;
+  }
+  .grid--plans > li:nth-child(4):nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+}

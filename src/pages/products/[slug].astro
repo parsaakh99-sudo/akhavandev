@@ -9,6 +9,7 @@ import DealBanner from "../../components/DealBanner.astro";
 import CarePlan from "../../components/CarePlan.astro";
 import Scenewise from "../../components/Scenewise.astro";
 import ProductTile from "../../components/ProductTile.astro";
+import Steps from "../../components/Steps.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { Image } from "astro:assets";
 import { img } from "../../lib/images";
@@ -77,19 +78,33 @@ const url = isScenewise ? "scenewise.net" : id === "ai-receptionist" ? "AI recep
   {
     app && (
       <section id="buy" class="section frame" aria-labelledby="buy-title">
-        <SectionHead id="buy-title" eyebrow="Pricing" title={app.prices.length > 1 ? "Two simple parts" : "One simple price"} lead={app.note} />
-        <ul class:list={["grid", app.prices.length > 1 ? "grid--2" : "grid--1"]}>
-          {app.prices.map((pr, i) => (
-            <li class:list={["panel price-card", { "panel--featured": i === 0 }]} data-reveal data-spot style={`--d:${i}`}>
-              <p class="kicker">{pr.label}</p>
-              <p class="price__amount price__amount--big"><span data-count>{pr.amount}</span>{pr.per && <span class="price__per">{pr.per}</span>}</p>
-              <a class:list={["button", i === 0 ? "button--primary button--big" : "button--ghost button--big"]} href={buyUrl(pr.stripe, `${p.name} (${pr.label})`)} data-magnetic>
-                {pr.cta} <span aria-hidden="true">→</span>
-              </a>
-            </li>
-          ))}
+        <SectionHead id="buy-title" eyebrow="Pricing" title={"pricingTitle" in app && app.pricingTitle ? app.pricingTitle : app.prices.length > 1 ? "Two simple parts" : "One simple price"} lead={app.note} />
+        <ul class:list={["grid", app.prices.length > 2 ? "grid--3 grid--plans" : app.prices.length > 1 ? "grid--2" : "grid--1"]}>
+          {app.prices.map((pr, i) => {
+            const hasFeatured = app.prices.some((x) => "featured" in x && x.featured);
+            const featured = hasFeatured ? "featured" in pr && !!pr.featured : i === 0;
+            return (
+              <li class:list={["panel price-card", { "panel--featured": featured }]} data-reveal data-spot style={`--d:${i}`}>
+                {featured && hasFeatured && <p class="badge">Most popular</p>}
+                <p class="kicker">{pr.label}</p>
+                <p class="price__amount price__amount--big"><span data-count>{pr.amount}</span>{pr.per && <span class="price__per">{pr.per}</span>}</p>
+                <a class:list={["button", featured ? "button--primary button--big" : "button--ghost button--big"]} href={buyUrl(pr.stripe, `${p.name} (${pr.label})`)} data-magnetic>
+                  {pr.cta} <span aria-hidden="true">→</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
-        <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
+        <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by {"checkout" in app && app.checkout ? app.checkout : "Stripe"}. Card details never touch this site.</p>
+      </section>
+    )
+  }
+
+  {
+    app && "steps" in app && app.steps && (
+      <section class="section frame" aria-labelledby="start-title">
+        <SectionHead id="start-title" eyebrow="Getting started" title="From checkout to your first answer" />
+        <Steps steps={app.steps} />
       </section>
     )
   }

@@ -123,14 +123,31 @@ export default {
       fit: "contain", // a screenshot: shown whole above the words, never cropped
       image: "studybuddy-desktop",
       imageMobile: "",
-      from: "$19",
+      from: "$1.99",
       name: "Study Buddy",
       kind: "Mac app",
       tagline: "A study sidebar that reads the question on your screen.",
-      body: "Press ⌥⌘A in any app or website and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again.",
-      features: ["Works over every app and site", "Answer, explain, or paste a question", "Fast or most-accurate mode"],
-      note: "For macOS 14 or later. Uses your own Claude subscription.",
-      prices: [{ label: "One-time", amount: "$19", per: "", cta: "Buy Study Buddy", stripe: "https://buy.stripe.com/bJe4gA7Us7u3bsSglyaAw00" }],
+      body: "Press ⌥⌘A in any app or website and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again. You link the AI you want, with your own key, and Gemini works with a free one.",
+      features: ["Works over every app and site", "Link any AI: Gemini (free), Claude, ChatGPT and more", "Answer, explain, or paste a question"],
+      note: "For macOS 14 or later. You link your own AI, so there are no AI fees from me.",
+      // Lemon Squeezy sends the license key and the download, so these are Lemon Squeezy checkout links.
+      // While a link is empty, its button opens an email to you instead.
+      checkout: "Lemon Squeezy",
+      pricingTitle: "Pick a plan",
+      prices: [
+        { label: "Daily", amount: "$1.99", per: "/ day", cta: "Get a day", stripe: "" },
+        { label: "Weekly", amount: "$3.99", per: "/ week", cta: "Get a week", stripe: "" },
+        { label: "Monthly", amount: "$7.99", per: "/ month", cta: "Get a month", stripe: "", featured: true },
+        { label: "Yearly", amount: "$39.99", per: "/ year", cta: "Get a year", stripe: "" },
+        { label: "Lifetime", amount: "$59.99", per: "once", cta: "Get it for life", stripe: "" },
+      ],
+      // Shown under the prices on its page.
+      steps: [
+        { title: "Pick a plan", body: "Your license key and download link arrive by email right after checkout." },
+        { title: "Install it", body: "Open StudyBuddy.dmg and drag Study Buddy into Applications. The first time, click Open Anyway in System Settings → Privacy & Security." },
+        { title: "Enter your key", body: "Study Buddy asks for your license key once. Daily to yearly plans renew until you cancel; Lifetime never expires." },
+        { title: "Link your AI", body: "Click the gear and pick an AI. Gemini is free with a key from Google AI Studio; Claude, ChatGPT, Grok and others work too." },
+      ],
     },
     {
       id: "ai-receptionist",
@@ -161,8 +178,9 @@ export default {
     "study-buddy": {
       title: "Your copy of Study Buddy",
       steps: [
-        "Your download link is on its way to the email you paid with, usually within a few hours.",
-        "Open the app, then allow Screen Recording when it asks, so it can see your screen.",
+        "Your license key and download link are in your email from Lemon Squeezy, and on your order page.",
+        "Open StudyBuddy.dmg, drag Study Buddy into Applications, then open it. The first time, click Open Anyway in System Settings → Privacy & Security.",
+        "Enter your license key, click the gear and link your AI. Gemini works with a free key from Google AI Studio.",
         "Press ⌥⌘A in any app to answer the question on screen.",
       ],
     },
@@ -329,6 +347,28 @@ export default {
   },
 
   // Brand colours from the Akhavan Developers logo: navy #0F1B2D, amber #F5A524.
+  // Christmas sale. Set on: false after it ends and the site goes back to normal.
+  // While it is on: every website package shows 30% off, the colours turn Christmas, and snow falls.
+  // Checkout: each Buy button uses the tier's saleStripe link if set; otherwise buyers enter the code
+  // at Stripe checkout. Create the coupon in Stripe (30% off, code XMAS30) and tick
+  // "Allow promotion codes" on each package's Payment Link, or the button charges full price.
+  holiday: {
+    on: true,
+    name: "Christmas sale",
+    percent: 30,
+    ends: "December 26",
+    code: "XMAS30",
+    snow: true,
+    theme: {
+      bg: "#0B1A14",
+      surface: "#10241B",
+      raised: "#163023",
+      muted: "#9DB5A8",
+      accent: "#F2C14E",
+      accentInk: "#0B1A14",
+    },
+  },
+
   theme: {
     bg: "#0A1220",
     surface: "#111C2E",

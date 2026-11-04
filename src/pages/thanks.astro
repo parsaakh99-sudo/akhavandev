@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { site, mailto } from "../lib/site";
 
-// Stripe sends buyers here after paying: /thanks?p=<product id>.
+// Stripe and Lemon Squeezy send buyers here after paying: /thanks?p=<product id>.
 // Each product says exactly what happens next, so nobody is left waiting or guessing.
 const next = site.afterPurchase;
 ---
@@ -11,7 +11,7 @@ const next = site.afterPurchase;
   <section class="frame page-hero thanks">
     <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Payment received</p>
     <h1 class="title">Thank you. You’re all set.</h1>
-    <p class="lead" data-default>Stripe has emailed you a receipt. Here’s what happens next.</p>
+    <p class="lead" data-default>Your receipt is on its way to your email. Here’s what happens next.</p>
 
     {
       Object.entries(next).map(([id, n]) => (
