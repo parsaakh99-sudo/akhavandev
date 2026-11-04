@@ -1,0 +1,17 @@
+---
+// The full logo: the mark, then the name set in the site's own face (Archivo, wide and black),
+// so it is real text — crisp, selectable and recoloured by the theme.
+import Mark from "./Mark.astro";
+interface Props {
+  size?: "small" | "big";
+}
+const { size = "small" } = Astro.props;
+---
+
+<span class:list={["brand", `brand--${size}`]}>
+  <Mark size={size === "big" ? 56 : 40} />
+  <span class="brand__words">
+    <span class="brand__name">Akhavan</span>
+    <span class="brand__sub">Developers</span>
+  </span>
+</span>

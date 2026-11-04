@@ -359,24 +359,20 @@ export default {
     ends: "December 26",
     code: "XMAS30",
     snow: true,
-    theme: {
-      bg: "#0B1A14",
-      surface: "#10241B",
-      raised: "#163023",
-      muted: "#9DB5A8",
-      accent: "#F2C14E",
-      accentInk: "#0B1A14",
-    },
+    // Colour changes for the sale only; empty keeps the site's own palette.
+    theme: {},
   },
 
+  // Clean & bright: cool white paper, near-black ink, one cobalt.
+  // Contrast: ink on bg 18:1, muted on bg 5.6:1, cobalt on white 6.6:1, white on cobalt 6.6:1.
   theme: {
-    bg: "#0A1220",
-    surface: "#111C2E",
-    raised: "#16233A",
-    ink: "#F5F7FA",
-    muted: "#94A3B8",
-    accent: "#F5A524",
-    accentInk: "#0F1B2D",
+    bg: "#F7F8FB",
+    surface: "#FFFFFF",
+    raised: "#EEF1F6",
+    ink: "#0E1116",
+    muted: "#545D6B",
+    accent: "#1F4BFF",
+    accentInk: "#FFFFFF",
     font: '"Archivo Variable", "Archivo Fallback", system-ui, sans-serif',
   },
 };

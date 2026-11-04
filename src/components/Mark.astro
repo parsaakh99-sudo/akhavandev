@@ -1,0 +1,26 @@
+---
+// The Akhavan Developers mark: a cobalt tile with a white "A" drawn as one chevron,
+// its crossbar in sky blue (the old logo's coloured crossbar, in the new palette).
+// Drawn in code so it stays sharp at every size. public/favicon.svg is the same drawing.
+interface Props {
+  size?: number;
+  class?: string;
+  title?: string;
+}
+const { size = 40, class: cls, title } = Astro.props;
+---
+
+<svg
+  class:list={["mark", cls]}
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  role={title ? "img" : undefined}
+  aria-hidden={title ? undefined : "true"}
+  aria-label={title}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect width="48" height="48" rx="13" fill="#1F4BFF"></rect>
+  <path d="M17 28h14" fill="none" stroke="#8FD3FF" stroke-width="5"></path>
+  <path d="M13.5 36 24 12l10.5 24" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

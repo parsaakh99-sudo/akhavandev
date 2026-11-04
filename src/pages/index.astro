@@ -10,7 +10,7 @@ import ProductTile from "../components/ProductTile.astro";
 import ServiceCard from "../components/ServiceCard.astro";
 import Steps from "../components/Steps.astro";
 import CtaBand from "../components/CtaBand.astro";
-import mark from "../assets/brand/mark.png";
+import Mark from "../components/Mark.astro";
 import { site, mailto, allProducts } from "../lib/site";
 
 const { hero, pages, services, process } = site;
@@ -24,7 +24,7 @@ const featured = site.work.find((w) => w.show);
     <div class="hero__mark" slot="aside" aria-hidden="true">
       <span class="hero__ring"></span>
       <span class="hero__ring hero__ring--2"></span>
-      <Image src={mark} alt="" width={320} height={320} loading="eager" class="hero__logo" />
+      <Mark size={320} class="hero__logo" />
     </div>
   </PageHero>
 
