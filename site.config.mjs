@@ -125,11 +125,11 @@ export default {
       imageMobile: "",
       from: "$1.99",
       name: "Study Buddy",
-      kind: "Mac app",
+      kind: "Mac & Windows app",
       tagline: "A study sidebar that reads the question on your screen.",
-      body: "Press ⌥⌘A in any app or website and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again. You link the AI you want, with your own key, and Gemini works with a free one.",
-      features: ["Works over every app and site", "Link any AI: Gemini (free), Claude, ChatGPT and more", "Answer, explain, or paste a question"],
-      note: "For macOS 14 or later. You link your own AI, so there are no AI fees from us.",
+      body: "Press ⌥⌘A on a Mac or Ctrl+Alt+A on Windows, in any app or website, and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again. You link the AI you want, with your own key, and Gemini works with a free one.",
+      features: ["For Mac and Windows, over every app and site", "Link any AI: Gemini (free), Claude, ChatGPT and more", "Answer, explain, or paste a question"],
+      note: "For macOS 14 or later, or Windows 10 and 11. One key works on one computer at a time. You link your own AI, so there are no AI fees from us.",
       // Lemon Squeezy sends the license key and the download, so these are Lemon Squeezy checkout links.
       // While a link is empty, its button opens an email to you instead.
       checkout: "Lemon Squeezy",
@@ -144,7 +144,7 @@ export default {
       // Shown under the prices on its page.
       steps: [
         { title: "Pick a plan", body: "Your license key and download link arrive by email right after checkout." },
-        { title: "Install it", body: "Open StudyBuddy.dmg and drag Study Buddy into Applications. The first time, click Open Anyway in System Settings → Privacy & Security." },
+        { title: "Install it", body: "Mac: open StudyBuddy.dmg, drag Study Buddy into Applications, and the first time click Open Anyway in System Settings → Privacy & Security. Windows: run StudyBuddySetup.exe, and if a blue SmartScreen box appears, click More info → Run anyway." },
         { title: "Enter your key", body: "Study Buddy asks for your license key once. Daily to yearly plans renew until you cancel; Lifetime never expires." },
         { title: "Link your AI", body: "Click the gear and pick an AI. Gemini is free with a key from Google AI Studio; Claude, ChatGPT, Grok and others work too." },
       ],
@@ -179,9 +179,10 @@ export default {
       title: "Your copy of Study Buddy",
       steps: [
         "Your license key and download link are in your email from Lemon Squeezy, and on your order page.",
-        "Open StudyBuddy.dmg, drag Study Buddy into Applications, then open it. The first time, click Open Anyway in System Settings → Privacy & Security.",
+        "Mac: open StudyBuddy.dmg, drag Study Buddy into Applications, then open it. The first time, click Open Anyway in System Settings → Privacy & Security.",
+        "Windows: run StudyBuddySetup.exe. If a blue SmartScreen box appears, click More info → Run anyway. Study Buddy opens on the right of your screen.",
         "Enter your license key, click the gear and link your AI. Gemini works with a free key from Google AI Studio.",
-        "Press ⌥⌘A in any app to answer the question on screen.",
+        "Press ⌥⌘A (Mac) or Ctrl+Alt+A (Windows) in any app to answer the question on screen.",
       ],
     },
     "ai-receptionist": {
