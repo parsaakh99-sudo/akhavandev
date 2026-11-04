@@ -129,7 +129,7 @@ export default {
       tagline: "A study sidebar that reads the question on your screen.",
       body: "Press ⌥⌘A in any app or website and Study Buddy looks at the question on your screen and explains the answer in a floating sidebar. Paste a question or a picture instead, or ask it to explain again. You link the AI you want, with your own key, and Gemini works with a free one.",
       features: ["Works over every app and site", "Link any AI: Gemini (free), Claude, ChatGPT and more", "Answer, explain, or paste a question"],
-      note: "For macOS 14 or later. You link your own AI, so there are no AI fees from me.",
+      note: "For macOS 14 or later. You link your own AI, so there are no AI fees from us.",
       // Lemon Squeezy sends the license key and the download, so these are Lemon Squeezy checkout links.
       // While a link is empty, its button opens an email to you instead.
       checkout: "Lemon Squeezy",
