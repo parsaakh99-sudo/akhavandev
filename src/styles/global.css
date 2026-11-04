@@ -2378,3 +2378,225 @@ main,
     grid-column: 2 / span 2;
   }
 }
+
+/* ----------------------------------------------------------
+   Holiday sale (site.config.mjs → holiday). Everything here
+   applies only while html has .holiday.
+   ---------------------------------------------------------- */
+
+.holiday {
+  --holly: #c8323a; /* cranberry red; white text on it is 5:1 */
+  --holly-ink: #fff;
+}
+
+/* the glass header takes the evergreen ground instead of navy */
+.holiday .header {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 70%, transparent), color-mix(in srgb, var(--bg) 50%, transparent));
+}
+
+/* the light behind the glass: gold, holly red and pine instead of blue and violet */
+.holiday .aurora i:nth-child(2) {
+  background: radial-gradient(circle, color-mix(in srgb, var(--holly) 75%, transparent), transparent 65%);
+}
+
+.holiday .aurora i:nth-child(3) {
+  background: radial-gradient(circle, rgb(34 139 84 / 0.6), transparent 65%);
+}
+
+.holiday .aurora i:nth-child(4) {
+  background: radial-gradient(circle, rgb(200 50 58 / 0.3), transparent 65%);
+}
+
+/* falling snow: above the page, under the header, never catching a tap */
+.snow {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* one line at the top of every page */
+.sale-ribbon {
+  position: relative;
+  z-index: 11;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-1) var(--s-3);
+  min-height: 40px;
+  padding-block: var(--s-2);
+  padding-inline: max(var(--margin), env(safe-area-inset-left, 0px)) max(var(--margin), env(safe-area-inset-right, 0px));
+  background: var(--holly);
+  color: var(--holly-ink);
+  font-size: var(--text-small);
+  text-align: center;
+  text-decoration: none;
+}
+
+.sale-ribbon__go {
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.sale-ribbon:hover .sale-ribbon__go,
+.sale-ribbon:focus-visible .sale-ribbon__go {
+  text-decoration-thickness: 2px;
+}
+
+/* a package's sale price: the new price big, the old one struck through, the tag beside */
+.sale-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-1) var(--s-3);
+}
+
+.sale-price__was {
+  color: var(--muted);
+  font-size: var(--text-lead);
+  font-weight: 600;
+  font-stretch: 100%;
+}
+
+.sale-price__tag {
+  align-self: center;
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--radius-pill);
+  background: var(--holly);
+  color: var(--holly-ink);
+  font-size: var(--text-small);
+  font-weight: 800;
+  font-stretch: 100%;
+  letter-spacing: 0;
+}
+
+.sale-code {
+  color: var(--muted);
+  font-size: var(--text-small);
+}
+
+.sale-code strong {
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+
+.deal--holiday {
+  border-color: color-mix(in srgb, var(--holly) 60%, transparent);
+  background:
+    radial-gradient(600px 200px at 0% 50%, color-mix(in srgb, var(--holly) 30%, transparent), transparent 70%),
+    var(--glass-bg-strong);
+}
+
+.deal__badge--holiday {
+  background: var(--holly);
+  color: var(--holly-ink);
+}
+
+/* phones: one short line, "Christmas sale: 30% off. See prices →" */
+@media (max-width: 559px) {
+  .sale-ribbon__long {
+    display: none;
+  }
+}
+
+/* ---------- holiday: richer colour ---------- */
+
+/* gold edges on every glass surface, warming to red at the far corner */
+.holiday {
+  --glass-edge: linear-gradient(135deg, rgb(242 193 78 / 0.7), rgb(255 255 255 / 0.12) 30%, rgb(255 255 255 / 0) 55%, rgb(200 50 58 / 0.45) 100%);
+}
+
+/* Let the glows show through: the page ground sits on html, and body carries only light.
+   Gold from the top right, holly red from the left, pine green rising from the bottom. */
+.holiday body {
+  background:
+    radial-gradient(1100px 700px at 88% -8%, rgb(242 193 78 / 0.2), transparent 60%),
+    radial-gradient(1000px 760px at -12% 28%, rgb(200 50 58 / 0.26), transparent 62%),
+    radial-gradient(1100px 800px at 55% 112%, rgb(34 139 84 / 0.34), transparent 62%);
+  background-attachment: fixed;
+}
+
+.holiday .aurora i {
+  opacity: 1;
+}
+
+.holiday .aurora i:nth-child(3) {
+  background: radial-gradient(circle, rgb(46 160 96 / 0.7), transparent 65%);
+}
+
+.holiday .aurora i:nth-child(4) {
+  background: radial-gradient(circle, rgb(200 50 58 / 0.45), transparent 65%);
+}
+
+.tile__ribbon--holiday {
+  background: var(--holly);
+  color: var(--holly-ink);
+  box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--holly) 80%, transparent);
+}
+
+/* a string of lights hanging from the sale bar, each bulb twinkling on its own beat */
+.lights {
+  position: relative;
+  z-index: 12;
+  display: flex;
+  justify-content: space-between;
+  height: 0;
+  padding-inline: var(--s-3);
+  pointer-events: none;
+  overflow-x: clip;
+}
+
+.lights i {
+  flex: none;
+  position: relative;
+  width: 8px;
+  height: 12px;
+  margin-top: 3px;
+  border-radius: 50% 50% 46% 46%;
+  background: currentColor;
+  box-shadow: 0 0 10px 2px currentColor;
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+
+/* the little cap each bulb hangs from */
+.lights i::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: #2b3a31;
+}
+
+.lights i:nth-child(4n + 1) { color: #ff5a5f; }
+.lights i:nth-child(4n + 2) { color: #ffd166; }
+.lights i:nth-child(4n + 3) { color: #4ade80; }
+.lights i:nth-child(4n + 4) { color: #9ad7ff; }
+.lights i:nth-child(3n + 1) { animation-delay: -0.9s; }
+.lights i:nth-child(3n + 2) { animation-delay: -1.7s; }
+.lights i:nth-child(5n) { animation-duration: 3.4s; }
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.35;
+    box-shadow: 0 0 2px 0 currentColor;
+  }
+}
+
+@media (max-width: 559px) {
+  .lights i:nth-child(even) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lights i {
+    animation: none;
+  }
+}

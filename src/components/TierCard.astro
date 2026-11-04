@@ -1,6 +1,6 @@
 ---
 import Checks from "./Checks.astro";
-import { site, buyUrl } from "../lib/site";
+import { site, buyUrl, sale, salePrice } from "../lib/site";
 
 interface Props {
   tier: {
@@ -11,6 +11,7 @@ interface Props {
     features: string[];
     cta: string;
     stripe: string;
+    saleStripe?: string;
     pair?: { amount: string; was: string; stripe: string };
     monthly?: { amount: string; count: number; stripe: string };
   };
@@ -18,20 +19,39 @@ interface Props {
 }
 const { tier: t, d = 0 } = Astro.props;
 const deal = site.websites.deal;
+// During the sale: the sale price, its own checkout link if there is one, otherwise the code.
+// The second-site deal is paused so the two discounts don't stack.
+const buy = (sale && t.saleStripe) || t.stripe;
+const showPair = !sale && t.pair?.stripe;
 ---
 
 <li class:list={["panel tier", { "panel--featured": t.featured }]} data-reveal data-spot style={`--d:${d}`}>
   {t.featured && <p class="badge">Most popular</p>}
   <p class="kicker">{t.name}</p>
-  <p class="price__amount price__amount--big"><span data-count>{t.amount}</span></p>
+  {
+    sale ? (
+      <p class="price__amount price__amount--big sale-price">
+        <span data-count>{salePrice(t.amount)}</span>
+        <s class="sale-price__was"><span class="sr-only">was </span>{t.amount}</s>
+        <span class="sale-price__tag">{sale.percent}% off</span>
+      </p>
+    ) : (
+      <p class="price__amount price__amount--big"><span data-count>{t.amount}</span></p>
+    )
+  }
   <p class="muted">{t.summary}</p>
   <Checks items={t.features} />
   <div class="tier__buy">
-    <a class:list={["button", t.featured ? "button--primary" : "button--ghost"]} href={buyUrl(t.stripe, `${t.name} website`)} data-magnetic={t.featured ? "" : undefined}>
+    <a class:list={["button", t.featured ? "button--primary" : "button--ghost"]} href={buyUrl(buy, `${t.name} website`)} data-magnetic={t.featured ? "" : undefined}>
       {t.cta} <span aria-hidden="true">→</span>
     </a>
     {
-      t.pair?.stripe && (
+      sale && !t.saleStripe && (
+        <p class="sale-code">Enter code <strong>{sale.code}</strong> at checkout</p>
+      )
+    }
+    {
+      showPair && (
         <a class="pair" href={buyUrl(t.pair.stripe, `Two ${t.name} websites (${deal.badge})`)}>
           <span class="pair__tag">{deal.badge}</span>
           <span class="pair__line">

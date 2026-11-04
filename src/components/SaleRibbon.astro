@@ -1,0 +1,18 @@
+---
+import { sale } from "../lib/site";
+// One line at the very top of every page while the holiday sale is on, hung with a string of lights.
+---
+
+{
+  sale && (
+    <>
+      <a class="sale-ribbon" href="/products/websites#buy">
+        <span>
+          <strong>{sale.name}:</strong> {sale.percent}% off<span class="sale-ribbon__long"> every website package, until {sale.ends}</span>.
+        </span>
+        <span class="sale-ribbon__go">See prices <span aria-hidden="true">→</span></span>
+      </a>
+      <div class="lights" aria-hidden="true">{Array.from({ length: 40 }, () => <i />)}</div>
+    </>
+  )
+}
