@@ -26,7 +26,7 @@ const showPair = !sale && t.pair?.stripe;
 ---
 
 <li class:list={["panel tier", { "panel--featured": t.featured }]} data-reveal data-spot style={`--d:${d}`}>
-  {t.featured && <p class="badge">Most popular</p>}
+  {t.featured && site.websites.tiers.length > 1 && <p class="badge">Most popular</p>}
   <p class="kicker">{t.name}</p>
   {
     sale ? (

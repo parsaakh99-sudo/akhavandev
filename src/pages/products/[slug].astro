@@ -26,6 +26,8 @@ const p = all.find((x) => x.id === id)!;
 const others = all.filter((x) => x.id !== id);
 const app = site.products.find((x) => x.id === id);
 const isWebsites = id === "websites";
+// One package: show it beside the care plan instead of in a row of three.
+const solo = site.websites.tiers.length === 1;
 const isScenewise = id === "scenewise";
 const url = isScenewise ? "scenewise.net" : id === "ai-receptionist" ? "AI receptionist demo" : undefined;
 ---
@@ -112,12 +114,25 @@ const url = isScenewise ? "scenewise.net" : id === "ai-receptionist" ? "AI recep
   {
     isWebsites && (
       <section id="buy" class="section frame" aria-labelledby="buy-title">
-        <SectionHead id="buy-title" eyebrow="Pricing" title="Pick a package" lead={`${site.websites.founding} Every package is hand-coded, built for phones first, and yours to keep.`} />
+        <SectionHead id="buy-title" eyebrow="Pricing" title={solo ? "One simple package" : "Pick a package"} lead={`${site.websites.founding} ${solo ? "It’s" : "Every package is"} hand-coded, built for phones first, and yours to keep.`} />
         <DealBanner />
-        <ul class="grid grid--3 grid--tiers">
-          {site.websites.tiers.map((t, i) => <TierCard tier={t} d={i} />)}
-        </ul>
-        <CarePlan />
+        {
+          solo ? (
+            <div class="solo">
+              <ul class="grid grid--tiers">
+                {site.websites.tiers.map((t, i) => <TierCard tier={t} d={i} />)}
+              </ul>
+              <CarePlan />
+            </div>
+          ) : (
+            <>
+              <ul class="grid grid--3 grid--tiers">
+                {site.websites.tiers.map((t, i) => <TierCard tier={t} d={i} />)}
+              </ul>
+              <CarePlan />
+            </>
+          )
+        }
         <p class="note note--center" data-reveal><span aria-hidden="true">🔒</span> Checkout is handled by Stripe. Card details never touch this site.</p>
       </section>
     )

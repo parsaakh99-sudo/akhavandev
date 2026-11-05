@@ -1637,6 +1637,24 @@ main,
   text-decoration-color: var(--accent);
 }
 
+/* One package: the package and the care plan side by side. */
+.solo {
+  display: grid;
+  gap: var(--s-4);
+  align-items: start;
+}
+
+.solo .care {
+  margin-top: 0;
+}
+
+@media (min-width: 900px) {
+  .solo {
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--s-5);
+  }
+}
+
 /* The monthly care add-on, a wide card under the packages. */
 .care {
   display: grid;
@@ -1650,7 +1668,7 @@ main,
 }
 
 @media (min-width: 960px) {
-  .care {
+  :not(.solo) > .care {
     grid-template-columns: 1.2fr 1fr auto;
     align-items: center;
     gap: var(--s-6);
